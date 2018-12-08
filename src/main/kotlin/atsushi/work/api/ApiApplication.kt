@@ -1,4 +1,4 @@
-package atsushi.info.api
+package atsushi.work.api
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
