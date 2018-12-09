@@ -1,4 +1,4 @@
-package atsushi.info.api
+package atsushi.work.api
 
 import org.junit.Test
 import org.junit.runner.RunWith

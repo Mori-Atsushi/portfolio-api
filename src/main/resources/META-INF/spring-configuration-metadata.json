@@ -1,0 +1,20 @@
+{
+  "properties": [
+    {
+      "name": "database.url",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "database.username",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "database.password",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "database.driverClassName",
+      "type": "java.lang.String"
+    }
+  ]
+}
