@@ -10,4 +10,5 @@ class BlogUseCase(
         val blogRepository: BlogRepository
 ) {
     fun getJsonList(): List<BlogArticleJson> = blogRepository.list().toJson()
+    fun getItem(id: Int): BlogArticleJson? = blogRepository.item(id)?.toJson()
 }

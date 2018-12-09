@@ -9,4 +9,5 @@ class BlogRepository(
         val article: Article
 ) {
     fun list(): List<BlogArticle> = article.list()
+    fun item(id: Int): BlogArticle? = article.item(id)
 }

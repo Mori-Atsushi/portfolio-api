@@ -31,6 +31,12 @@ class Article(
     fun list(): List<BlogArticle> = transaction {
         ArticlesTable.selectAll().toList()
     }
+
+    fun item(id: Int): BlogArticle? = transaction {
+        ArticlesTable.select {
+            ArticlesTable.id.eq(id)
+        }.toList().firstOrNull()
+    }
 }
 
 private fun Query.toList(): List<BlogArticle> =
