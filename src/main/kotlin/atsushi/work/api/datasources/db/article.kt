@@ -19,15 +19,10 @@ private object ArticlesTable : Table() {
 
 @Component
 class Article(
-        properties: Properties
+        config: Config
 ) {
     init {
-        Database.connect(
-                properties.fullUrl,
-                properties.driverClassName,
-                properties.username,
-                properties.password
-        )
+        config.setup()
         transaction {
             SchemaUtils.create(ArticlesTable)
         }
