@@ -10,4 +10,5 @@ class Properties {
     lateinit var username: String
     lateinit var password: String
     lateinit var driverClassName: String
+    val fullUrl: String get() = "$url?useUnicode=true&useFastDateParsing=false&characterEncoding=UTF-8"
 }
