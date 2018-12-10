@@ -38,6 +38,12 @@ class Article(
             ArticlesTable.id.eq(id)
         }.toBlogArticleList().firstOrNull()
     }
+
+    fun getListFromCategory(id: Int): List<BlogArticle> = transaction {
+        ArticlesTable.select {
+            ArticlesTable.categoryId.eq(id)
+        }.toBlogArticleList()
+    }
 }
 
 private fun Query.toBlogArticleList(): List<BlogArticle> =

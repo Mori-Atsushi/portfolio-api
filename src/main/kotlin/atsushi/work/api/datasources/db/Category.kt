@@ -1,5 +1,6 @@
 package atsushi.work.api.datasources.db
 
+import atsushi.work.api.entities.BlogArticle
 import atsushi.work.api.entities.CategoryTreeData
 import atsushi.work.api.entities.CategoryData
 import atsushi.work.api.entities.CategoryDataWithParents
@@ -49,6 +50,28 @@ class Category(
                     )
                 }
                 .toTree()
+    }
+
+    fun getItem(name: String): CategoryData? = transaction {
+        CategoriesTable
+                .select { CategoriesTable.name eq name }
+                .toCategoryList()
+                .firstOrNull()
+    }
+
+    fun getDescendant(name: String): List<CategoryData> = transaction {
+        CategoriesTable
+                .innerJoin(
+                        otherTable = CategoryTreeTable,
+                        onColumn = { CategoriesTable.id },
+                        otherColumn = { CategoryTreeTable.descendant })
+                .select {
+                    CategoryTreeTable.ancestor.inList(
+                            listOfNotNull(getItem(name)?.id)
+                    )
+                }
+                .orderBy(CategoryTreeTable.pathLength to false)
+                .toCategoryList()
     }
 
     fun getAncestors(id: Int): List<CategoryData> = transaction {
