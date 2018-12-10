@@ -29,11 +29,11 @@ class Article(
         }
     }
 
-    fun list(): List<BlogArticle> = transaction {
+    fun getList(): List<BlogArticle> = transaction {
         ArticlesTable.selectAll().toBlogArticleList()
     }
 
-    fun item(id: Int): BlogArticle? = transaction {
+    fun getItem(id: Int): BlogArticle? = transaction {
         ArticlesTable.select {
             ArticlesTable.id.eq(id)
         }.toBlogArticleList().firstOrNull()
