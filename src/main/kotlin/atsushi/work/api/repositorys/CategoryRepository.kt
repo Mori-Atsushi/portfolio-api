@@ -8,5 +8,6 @@ import org.springframework.stereotype.Component
 class CategoryRepository(
         val category: Category
 ) {
+    fun getList() = category.getList()
     fun getAncestors(id: Int): List<CategoryData> = category.getAncestors(id)
 }
