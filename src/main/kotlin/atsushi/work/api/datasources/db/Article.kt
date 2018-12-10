@@ -1,6 +1,7 @@
 package atsushi.work.api.datasources.db
 
 import atsushi.work.api.entities.BlogArticle
+import org.joda.time.DateTime
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Component
@@ -30,19 +31,37 @@ class Article(
     }
 
     fun getList(): List<BlogArticle> = transaction {
-        ArticlesTable.selectAll().toBlogArticleList()
+        ArticlesTable
+                .select(isPublic())
+                .toBlogArticleList()
     }
 
     fun getItem(id: Int): BlogArticle? = transaction {
-        ArticlesTable.select {
-            ArticlesTable.id.eq(id)
-        }.toBlogArticleList().firstOrNull()
+        ArticlesTable
+                .select {
+                    ArticlesTable.id eq id and isPublic()
+                }
+                .toBlogArticleList()
+                .firstOrNull()
     }
 
     fun getListFromCategory(id: Int): List<BlogArticle> = transaction {
-        ArticlesTable.select {
-            ArticlesTable.categoryId.eq(id)
-        }.toBlogArticleList()
+        ArticlesTable
+                .select {
+                    ArticlesTable.categoryId.eq(id)
+                }
+                .toBlogArticleList()
+    }
+
+    private fun isPublic(): Op<Boolean> {
+        val now = DateTime.now()
+
+        return Op.build {
+            ArticlesTable.isPublic eq true and (
+                    ArticlesTable.releaseAt.isNull() or
+                            ArticlesTable.releaseAt.lessEq(now)
+                    )
+        }
     }
 }
 
