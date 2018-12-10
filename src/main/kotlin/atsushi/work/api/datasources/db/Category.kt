@@ -30,50 +30,25 @@ class Category(
         }
     }
 
-    fun getList(): List<CategoryTreeData> {
-        val categories = transaction {
-            val categoryTreeAlias = CategoryTreeTable
-                    .select { CategoryTreeTable.pathLength eq 1 }
-                    .alias("categoryTree")
+    fun getList(): List<CategoryTreeData> = transaction {
+        val categoryTreeAlias = CategoryTreeTable
+                .select { CategoryTreeTable.pathLength eq 1 }
+                .alias("categoryTree")
 
-            CategoriesTable
-                    .leftJoin(
-                            otherTable = categoryTreeAlias,
-                            onColumn = { CategoriesTable.id },
-                            otherColumn = { categoryTreeAlias[CategoryTreeTable.descendant] })
-                    .selectAll()
-                    .map {
-                        CategoryDataWithParents(
-                                it[categoryTreeAlias[CategoryTreeTable.ancestor]],
-                                it[CategoriesTable.id],
-                                it[CategoriesTable.name]
-                        )
-                    }
-        }
-
-        val nodes = categories
+        CategoriesTable
+                .leftJoin(
+                        otherTable = categoryTreeAlias,
+                        onColumn = { CategoriesTable.id },
+                        otherColumn = { categoryTreeAlias[CategoryTreeTable.descendant] })
+                .selectAll()
                 .map {
-                    CategoryTreeData(
-                            it.id,
-                            it.name
+                    CategoryDataWithParents(
+                            it[categoryTreeAlias[CategoryTreeTable.ancestor]],
+                            it[CategoriesTable.id],
+                            it[CategoriesTable.name]
                     )
                 }
-
-        categories
-                .filter { it.parentId != null }
-                .forEach { item ->
-                    nodes.find {
-                        it.id == item.parentId
-                    }?.children?.add(
-                            nodes.find { it.id == item.id }!!
-                    )
-                }
-
-        return categories
-                .filter { it.parentId == null }
-                .mapNotNull { item ->
-                    nodes.find { it.id == item.id }
-                }
+                .toTree()
     }
 
     fun getAncestors(id: Int): List<CategoryData> = transaction {
@@ -96,4 +71,27 @@ private fun Query.toCategoryList(): List<CategoryData> = this.map {
             it[CategoriesTable.id],
             it[CategoriesTable.name]
     )
+}
+
+private fun List<CategoryDataWithParents>.toTree(): List<CategoryTreeData> {
+    val nodes = this.map {
+        CategoryTreeData(
+                it.id,
+                it.name
+        )
+    }
+
+    this.filter { it.parentId != null }
+            .forEach { item ->
+                nodes.find {
+                    it.id == item.parentId
+                }?.children?.add(
+                        nodes.find { it.id == item.id }!!
+                )
+            }
+
+    return this.filter { it.parentId == null }
+            .mapNotNull { item ->
+                nodes.find { it.id == item.id }
+            }
 }
