@@ -15,6 +15,7 @@ object ArticlesTable : Table() {
     val releaseAt = datetime("release_at").nullable()
     val createAt = datetime("createAt")
     val updatedAt = datetime("updated_at")
+    val categoryId = (integer("category_id") references CategoriesTable.id).nullable()
 }
 
 @Component
@@ -50,6 +51,7 @@ private fun Query.toBlogArticleList(): List<BlogArticle> =
                     it[ArticlesTable.ogpImage],
                     it[ArticlesTable.releaseAt],
                     it[ArticlesTable.createAt],
-                    it[ArticlesTable.updatedAt]
+                    it[ArticlesTable.updatedAt],
+                    it[ArticlesTable.categoryId]
             )
         }

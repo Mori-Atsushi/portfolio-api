@@ -11,5 +11,6 @@ data class BlogArticle(
         val ogpImage: String?,
         val releaseAt: DateTime?,
         val createAt: DateTime,
-        val updatedAt: DateTime
+        val updatedAt: DateTime,
+        val categoryId: Int? = null
 )

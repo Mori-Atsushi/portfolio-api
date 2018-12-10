@@ -9,5 +9,6 @@ data class BlogArticleJson(
         val ogpImage: String?,
         val releaseAt: String?,
         val createAt: String,
-        val updatedAt: String
+        val updatedAt: String,
+        val categories: List<CategoryData>?
 )

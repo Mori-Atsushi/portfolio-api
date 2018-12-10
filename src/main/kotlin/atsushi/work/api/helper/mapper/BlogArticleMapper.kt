@@ -2,12 +2,11 @@ package atsushi.work.api.helper.mapper
 
 import atsushi.work.api.entities.BlogArticle
 import atsushi.work.api.entities.BlogArticleJson
+import atsushi.work.api.entities.CategoryData
 
-fun List<BlogArticle>.toJson(): List<BlogArticleJson> = this.map {
-    it.toJson()
-}
-
-fun BlogArticle.toJson(): BlogArticleJson = BlogArticleJson(
+fun BlogArticle.toJson(
+        categories: List<CategoryData>? = null
+): BlogArticleJson = BlogArticleJson(
         this.id,
         this.title,
         this.description,
@@ -16,5 +15,6 @@ fun BlogArticle.toJson(): BlogArticleJson = BlogArticleJson(
         this.ogpImage,
         this.releaseAt?.toString(),
         this.createAt.toString(),
-        this.updatedAt.toString()
+        this.updatedAt.toString(),
+        categories
 )

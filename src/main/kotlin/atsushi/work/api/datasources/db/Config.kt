@@ -1,6 +1,5 @@
 package atsushi.work.api.datasources.db
 
-
 import org.jetbrains.exposed.sql.Database
 import org.springframework.stereotype.Component
 
