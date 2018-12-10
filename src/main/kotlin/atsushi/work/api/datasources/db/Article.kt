@@ -72,10 +72,8 @@ private fun Query.toBlogArticleList(): List<BlogArticle> =
                     it[ArticlesTable.title],
                     it[ArticlesTable.description],
                     it[ArticlesTable.content],
-                    it[ArticlesTable.isPublic],
                     it[ArticlesTable.ogpImage],
-                    it[ArticlesTable.releaseAt],
-                    it[ArticlesTable.createAt],
+                    it[ArticlesTable.releaseAt] ?: it[ArticlesTable.createAt],
                     it[ArticlesTable.updatedAt],
                     it[ArticlesTable.categoryId]
             )

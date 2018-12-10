@@ -7,10 +7,8 @@ data class BlogArticle(
         val title: String,
         val description: String,
         val content: String,
-        val isPublic: Boolean,
         val ogpImage: String?,
-        val releaseAt: DateTime?,
-        val createAt: DateTime,
+        val releaseAt: DateTime,
         val updatedAt: DateTime,
         val categoryId: Int? = null
 )
