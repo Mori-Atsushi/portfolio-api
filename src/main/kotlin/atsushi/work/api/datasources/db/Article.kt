@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Component
 
-private object ArticlesTable : Table() {
+object ArticlesTable : Table() {
     val id = integer("id").autoIncrement().primaryKey()
     val title = text("title")
     val description = text("description")
@@ -15,6 +15,7 @@ private object ArticlesTable : Table() {
     val releaseAt = datetime("release_at").nullable()
     val createAt = datetime("createAt")
     val updatedAt = datetime("updated_at")
+    val categoryId = (integer("category_id") references CategoriesTable.id).nullable()
 }
 
 @Component
@@ -29,17 +30,23 @@ class Article(
     }
 
     fun list(): List<BlogArticle> = transaction {
-        ArticlesTable.selectAll().toList()
+        ArticlesTable.selectAll().toBlogArticleList()
     }
 
     fun item(id: Int): BlogArticle? = transaction {
         ArticlesTable.select {
             ArticlesTable.id.eq(id)
-        }.toList().firstOrNull()
+        }.toBlogArticleList().firstOrNull()
+    }
+
+    fun getListFromCategory(id: Int): List<BlogArticle> = transaction {
+        ArticlesTable.select {
+            ArticlesTable.categoryId.eq(id)
+        }.toBlogArticleList()
     }
 }
 
-private fun Query.toList(): List<BlogArticle> =
+private fun Query.toBlogArticleList(): List<BlogArticle> =
         this.map {
             BlogArticle(
                     it[ArticlesTable.id],
@@ -50,6 +57,7 @@ private fun Query.toList(): List<BlogArticle> =
                     it[ArticlesTable.ogpImage],
                     it[ArticlesTable.releaseAt],
                     it[ArticlesTable.createAt],
-                    it[ArticlesTable.updatedAt]
+                    it[ArticlesTable.updatedAt],
+                    it[ArticlesTable.categoryId]
             )
         }

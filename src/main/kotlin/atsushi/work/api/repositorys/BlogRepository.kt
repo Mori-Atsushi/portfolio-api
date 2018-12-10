@@ -10,4 +10,6 @@ class BlogRepository(
 ) {
     fun list(): List<BlogArticle> = article.list()
     fun item(id: Int): BlogArticle? = article.item(id)
+    fun getListFromCategory(id: Int): List<BlogArticle> =
+            article.getListFromCategory(id)
 }
