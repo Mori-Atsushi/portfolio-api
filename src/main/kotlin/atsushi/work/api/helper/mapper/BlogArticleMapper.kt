@@ -11,10 +11,8 @@ fun BlogArticle.toJson(
         this.title,
         this.description,
         this.content,
-        this.isPublic,
         this.ogpImage,
-        this.releaseAt?.toString(),
-        this.createAt.toString(),
+        this.releaseAt.toString(),
         this.updatedAt.toString(),
         categories
 )

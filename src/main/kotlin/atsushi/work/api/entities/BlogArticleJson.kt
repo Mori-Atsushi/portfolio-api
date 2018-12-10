@@ -5,10 +5,8 @@ data class BlogArticleJson(
         val title: String,
         val description: String,
         val content: String,
-        val isPublic: Boolean,
         val ogpImage: String?,
-        val releaseAt: String?,
-        val createAt: String,
+        val releaseAt: String,
         val updatedAt: String,
         val categories: List<CategoryData>?
 )
