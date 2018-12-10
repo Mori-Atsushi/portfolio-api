@@ -9,6 +9,6 @@ class CategoryRepository(
         val category: Category
 ) {
     fun getList() = category.getList()
-    fun getDescendant(name: String): List<CategoryData> = category.getDescendant(name)
+    fun getDescendant(name: String): List<CategoryData>? = category.getDescendant(name)
     fun getAncestors(id: Int): List<CategoryData> = category.getAncestors(id)
 }

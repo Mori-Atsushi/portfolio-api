@@ -59,19 +59,21 @@ class Category(
                 .firstOrNull()
     }
 
-    fun getDescendant(name: String): List<CategoryData> = transaction {
-        CategoriesTable
-                .innerJoin(
-                        otherTable = CategoryTreeTable,
-                        onColumn = { CategoriesTable.id },
-                        otherColumn = { CategoryTreeTable.descendant })
-                .select {
-                    CategoryTreeTable.ancestor.inList(
-                            listOfNotNull(getItem(name)?.id)
-                    )
-                }
-                .orderBy(CategoryTreeTable.pathLength to false)
-                .toCategoryList()
+    fun getDescendant(name: String): List<CategoryData>? = transaction {
+        getItem(name)?.let {
+            CategoriesTable
+                    .innerJoin(
+                            otherTable = CategoryTreeTable,
+                            onColumn = { CategoriesTable.id },
+                            otherColumn = { CategoryTreeTable.descendant })
+                    .select {
+                        CategoryTreeTable.ancestor.inList(
+                                listOf(it.id)
+                        )
+                    }
+                    .orderBy(CategoryTreeTable.pathLength to false)
+                    .toCategoryList()
+        }
     }
 
     fun getAncestors(id: Int): List<CategoryData> = transaction {

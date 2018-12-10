@@ -16,5 +16,5 @@ class BlogCategoryController(
 
     @RequestMapping(value = ["/{name}"], method = [RequestMethod.GET])
     fun item(@PathVariable("name") name: String): List<BlogArticleJson> =
-            useCase.getItem(name)
+            useCase.getItem(name) ?: throw NotFoundException()
 }

@@ -13,15 +13,14 @@ class CategoryUseCase(
 ) {
     fun getList() = categoryRepository.getList()
 
-    fun getItem(name: String): List<BlogArticleJson> {
+    fun getItem(name: String): List<BlogArticleJson>? {
         val categories = categoryRepository.getDescendant(name)
-        println(categories)
         return categories
-                .map {
+                ?.map {
                     blogRepository.getListFromCategory(it.id)
                 }
-                .flatten()
-                .map {
+                ?.flatten()
+                ?.map {
                     it.toJson(it.categoryId?.let { id ->
                         categoryRepository.getAncestors(id)
                     })
