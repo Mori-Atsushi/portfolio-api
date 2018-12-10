@@ -12,7 +12,7 @@ class BlogUseCase(
         val categoryRepository: CategoryRepository
 ) {
     fun getJsonList(): List<BlogArticleJson> {
-        val articles = blogRepository.list()
+        val articles = blogRepository.getList()
         return articles.map {
             it.toJson(it.categoryId?.let { id ->
                 categoryRepository.getAncestors(id)
@@ -21,7 +21,7 @@ class BlogUseCase(
     }
 
     fun getItem(id: Int): BlogArticleJson? {
-        val article = blogRepository.item(id)
+        val article = blogRepository.getItem(id)
         val categories = article?.categoryId?.let {
             categoryRepository.getAncestors(it)
         }
