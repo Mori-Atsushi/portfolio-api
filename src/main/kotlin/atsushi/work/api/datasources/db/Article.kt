@@ -13,7 +13,7 @@ object ArticlesTable : Table() {
     val content = text("content")
     val isPublic = bool("is_public")
     val ogpImage = text("ogp_image").nullable()
-    val releaseAt = datetime("release_at").nullable()
+    val releaseAt = datetime("release_at")
     val createAt = datetime("createAt")
     val updatedAt = datetime("updated_at")
     val categoryId = (integer("category_id") references CategoriesTable.id).nullable()
@@ -33,6 +33,7 @@ class Article(
     fun getList(): List<BlogArticle> = transaction {
         ArticlesTable
                 .select(isPublic())
+                .orderBy(ArticlesTable.releaseAt to false)
                 .toBlogArticleList()
     }
 
@@ -73,7 +74,7 @@ private fun Query.toBlogArticleList(): List<BlogArticle> =
                     it[ArticlesTable.description],
                     it[ArticlesTable.content],
                     it[ArticlesTable.ogpImage],
-                    it[ArticlesTable.releaseAt] ?: it[ArticlesTable.createAt],
+                    it[ArticlesTable.releaseAt],
                     it[ArticlesTable.updatedAt],
                     it[ArticlesTable.categoryId]
             )
