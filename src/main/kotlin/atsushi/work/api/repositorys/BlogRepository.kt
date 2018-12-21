@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component
 class BlogRepository(
         val article: Article
 ) {
-    fun getList(page: Int, num: Int): List<BlogArticle> =
-            article.getList(num, num * (page - 1))
+    fun getList(limit: Int, offset: Int): List<BlogArticle> = article.getList(limit, offset)
 
     fun getItem(id: Int): BlogArticle? = article.getItem(id)
     fun getListFromCategory(id: Int): List<BlogArticle> =

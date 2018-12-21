@@ -1,6 +1,7 @@
 package atsushi.work.api.controllers
 
 import atsushi.work.api.entities.BlogArticleJson
+import atsushi.work.api.entities.BlogArticleListJson
 import atsushi.work.api.helper.exception.NotFoundException
 import org.springframework.web.bind.annotation.*
 import atsushi.work.api.usecase.BlogUseCase
@@ -14,7 +15,7 @@ class BlogController(
     fun list(
             @RequestParam("page") page: Int?,
             @RequestParam("num") num: Int?
-    ): List<BlogArticleJson> = blogUseCase.getJsonList(
+    ): BlogArticleListJson = blogUseCase.getJsonList(
             page ?: 1,
             num ?: 20
     )
