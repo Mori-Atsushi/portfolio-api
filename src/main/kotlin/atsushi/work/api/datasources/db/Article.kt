@@ -30,10 +30,11 @@ class Article(
         }
     }
 
-    fun getList(): List<BlogArticle> = transaction {
+    fun getList(limit: Int, offset: Int): List<BlogArticle> = transaction {
         ArticlesTable
                 .select(isPublic())
                 .orderBy(ArticlesTable.releaseAt to false)
+                .limit(limit, offset = offset)
                 .toBlogArticleList()
     }
 

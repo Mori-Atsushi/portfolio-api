@@ -11,7 +11,13 @@ class BlogController(
         val blogUseCase: BlogUseCase
 ) {
     @RequestMapping(method = [RequestMethod.GET])
-    fun list(): List<BlogArticleJson> = blogUseCase.getJsonList()
+    fun list(
+            @RequestParam("page") page: Int?,
+            @RequestParam("num") num: Int?
+    ): List<BlogArticleJson> = blogUseCase.getJsonList(
+            page ?: 1,
+            num ?: 20
+    )
 
     @RequestMapping(value = ["/{id}"], method = [RequestMethod.GET])
     fun item(@PathVariable("id") id: Int): BlogArticleJson =
