@@ -7,7 +7,7 @@ import atsushi.work.api.usecase.CategoryUseCase
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/blog/category")
 class BlogCategoryController(
         val useCase: CategoryUseCase
 ) {
