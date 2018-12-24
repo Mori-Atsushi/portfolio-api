@@ -30,6 +30,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
         corsConfiguration.addAllowedMethod(CorsConfiguration.ALL)
         corsConfiguration.addAllowedHeader(CorsConfiguration.ALL)
         corsConfiguration.addAllowedOrigin("https://at-sushi.work")
+        corsConfiguration.addAllowedOrigin("https://api.at-sushi.work")
         corsConfiguration.addAllowedOrigin("http://localhost:3000")
         corsConfiguration.allowCredentials = true
 
