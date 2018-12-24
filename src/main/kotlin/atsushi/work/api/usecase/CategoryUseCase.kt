@@ -23,8 +23,14 @@ class CategoryUseCase(
                         categoryRepository.getAncestors(id)
                     })
                 }
-        val nextToken = null
-        val prevToken = null
+
+        val prevToken = if (blogRepository.isExistPrev(num, offset, ids)) {
+            "?page=${page - 1}&num=$num"
+        } else null
+        val nextToken = if (blogRepository.isExistNext(num, offset, ids)) {
+            "?page=${page + 1}&num=$num"
+        } else null
+
         return BlogArticleListJson(
                 nextToken,
                 prevToken,
