@@ -17,7 +17,7 @@
       "type": "java.lang.String"
     },
     {
-      "name": "slack.webhookUrl",
+      "name": "slack.webhookurl",
       "type": "java.lang.String"
     }
   ]

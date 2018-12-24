@@ -15,7 +15,7 @@ class Slack(
             title: String? = null,
             authorName: String? = null
     ) {
-        val webhook = properties.webhookUrl
+        val webhook = properties.webhookurl
         val body = SlackMessageRequest(
                 attachments = listOf(SlackMessageAttachment(
                         fallback = text,
@@ -35,7 +35,7 @@ class Slack(
 @Component
 @ConfigurationProperties(prefix = "slack")
 class SlackProperties {
-    lateinit var webhookUrl: String
+    lateinit var webhookurl: String
 }
 
 
