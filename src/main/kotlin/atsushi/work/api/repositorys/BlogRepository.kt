@@ -11,6 +11,7 @@ class BlogRepository(
     fun getList(limit: Int, offset: Int): List<BlogArticle> = article.getList(limit, offset)
 
     fun getItem(id: Int): BlogArticle? = article.getItem(id)
-    fun getListFromCategory(id: Int): List<BlogArticle> =
-            article.getListFromCategory(id)
+
+    fun getListFromCategory(ids: List<Int>, limit: Int, offset: Int): List<BlogArticle> =
+            article.getListFromCategory(ids, limit, offset)
 }

@@ -47,11 +47,13 @@ class Article(
                 .firstOrNull()
     }
 
-    fun getListFromCategory(id: Int): List<BlogArticle> = transaction {
+    fun getListFromCategory(ids: List<Int>, limit: Int, offset: Int): List<BlogArticle> = transaction {
         ArticlesTable
                 .select {
-                    ArticlesTable.categoryId.eq(id)
+                    ArticlesTable.categoryId.inList(ids)
                 }
+                .orderBy(ArticlesTable.releaseAt to false)
+                .limit(limit, offset = offset)
                 .toBlogArticleList()
     }
 
