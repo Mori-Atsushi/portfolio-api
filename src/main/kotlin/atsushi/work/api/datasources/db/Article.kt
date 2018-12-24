@@ -30,9 +30,19 @@ class Article(
         }
     }
 
-    fun getList(limit: Int, offset: Int): List<BlogArticle> = transaction {
+    fun getList(
+            limit: Int,
+            offset: Int,
+            categoryIds: List<Int>? = null
+    ): List<BlogArticle> = transaction {
         ArticlesTable
-                .select(isPublic())
+                .select {
+                    if (categoryIds == null) {
+                        isPublic()
+                    } else {
+                        isPublic() and inCategoryList(categoryIds)
+                    }
+                }
                 .orderBy(ArticlesTable.releaseAt to false)
                 .limit(limit, offset = offset)
                 .toBlogArticleList()
@@ -47,16 +57,6 @@ class Article(
                 .firstOrNull()
     }
 
-    fun getListFromCategory(ids: List<Int>, limit: Int, offset: Int): List<BlogArticle> = transaction {
-        ArticlesTable
-                .select {
-                    ArticlesTable.categoryId.inList(ids)
-                }
-                .orderBy(ArticlesTable.releaseAt to false)
-                .limit(limit, offset = offset)
-                .toBlogArticleList()
-    }
-
     private fun isPublic(): Op<Boolean> {
         val now = DateTime.now()
 
@@ -65,6 +65,12 @@ class Article(
                     ArticlesTable.releaseAt.isNull() or
                             ArticlesTable.releaseAt.lessEq(now)
                     )
+        }
+    }
+
+    private fun inCategoryList(ids: List<Int>): Op<Boolean> {
+        return Op.build {
+            ArticlesTable.categoryId.inList(ids)
         }
     }
 }

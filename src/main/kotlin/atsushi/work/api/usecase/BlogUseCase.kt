@@ -15,20 +15,20 @@ class BlogUseCase(
     fun getJsonList(page: Int, num: Int): BlogArticleListJson {
         val offset = num * (page - 1)
         val articles = blogRepository.getList(num, offset)
-        val prevArticle =
-                if (offset > 0) {
-                    blogRepository.getList(1, offset - 1)
-                } else {
-                    emptyList()
-                }
-        val nextArticle = blogRepository.getList(1, offset + num)
-        val prevToken = if (prevArticle.isNotEmpty()) "?page=${page - 1}&num=$num" else null
-        val nextToken = if (nextArticle.isNotEmpty()) "?page=${page + 1}&num=$num" else null
+
+        val prevToken = if (blogRepository.isExistPrev(num, offset)) {
+            "?page=${page - 1}&num=$num"
+        } else null
+        val nextToken = if (blogRepository.isExistNext(num, offset)) {
+            "?page=${page + 1}&num=$num"
+        } else null
+
         val list = articles.map {
             it.toJson(it.categoryId?.let { id ->
                 categoryRepository.getAncestors(id)
             })
         }
+
         return BlogArticleListJson(
                 nextToken,
                 prevToken,

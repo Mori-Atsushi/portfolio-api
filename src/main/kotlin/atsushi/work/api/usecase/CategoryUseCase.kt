@@ -17,7 +17,7 @@ class CategoryUseCase(
     fun getItem(name: String, page: Int, num: Int): BlogArticleListJson {
         val offset = num * (page - 1)
         val ids = categoryRepository.getDescendant(name)?.map { it.id } ?: listOf()
-        val list = blogRepository.getListFromCategory(ids, num, offset)
+        val list = blogRepository.getList(num, offset, ids)
                 .map {
                     it.toJson(it.categoryId?.let { id ->
                         categoryRepository.getAncestors(id)
