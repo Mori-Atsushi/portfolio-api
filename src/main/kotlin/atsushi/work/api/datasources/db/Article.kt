@@ -1,6 +1,7 @@
 package atsushi.work.api.datasources.db
 
 import atsushi.work.api.entities.BlogArticle
+import atsushi.work.api.entities.BlogArticleReadHistory
 import org.joda.time.DateTime
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -19,6 +20,12 @@ object ArticlesTable : Table() {
     val categoryId = (integer("category_id") references CategoriesTable.id).nullable()
 }
 
+object ArticlesReadTable : Table() {
+    val id = integer("id").autoIncrement().primaryKey()
+    val articleId = (integer("article_id") references ArticlesTable.id)
+    val readAt = datetime("createAt")
+}
+
 @Component
 class Article(
         config: Config
@@ -27,6 +34,7 @@ class Article(
         config.setup()
         transaction {
             SchemaUtils.create(ArticlesTable)
+            SchemaUtils.create(ArticlesReadTable)
         }
     }
 
@@ -55,6 +63,13 @@ class Article(
                 }
                 .toBlogArticleList()
                 .firstOrNull()
+    }
+
+    fun readItem(id: Int) = transaction {
+        ArticlesReadTable.insert {
+            it[articleId] = id
+            it[readAt] = DateTime.now()
+        }
     }
 
     private fun isPublic(): Op<Boolean> {

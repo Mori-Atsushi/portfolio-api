@@ -38,4 +38,13 @@ class BlogRepository(
         val nextArticle = getList(1, offset + limit, categoryIds)
         return nextArticle.isNotEmpty()
     }
+
+    /**
+     * ブログが読まれたことを保存する
+     *
+     * @args id ブログID
+     */
+    fun readItem(id: Int) {
+        article.readItem(id)
+    }
 }
