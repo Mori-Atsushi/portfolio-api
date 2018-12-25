@@ -2,6 +2,7 @@ package atsushi.work.api.usecase
 
 import atsushi.work.api.entities.BlogArticleJson
 import atsushi.work.api.entities.BlogArticleListJson
+import atsushi.work.api.helper.exception.NotFoundException
 import atsushi.work.api.helper.mapper.toJson
 import atsushi.work.api.repositorys.BlogRepository
 import atsushi.work.api.repositorys.CategoryRepository
@@ -42,5 +43,15 @@ class BlogUseCase(
             categoryRepository.getAncestors(it)
         }
         return article?.toJson(categories)
+    }
+
+    /**
+     * ブログが読まれたことを保存する
+     *
+     * @args id ブログID
+     */
+    fun readItem(id: Int) {
+        val article = blogRepository.getItem(id) ?: throw NotFoundException()
+        blogRepository.readItem(article.id)
     }
 }

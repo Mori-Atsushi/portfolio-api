@@ -23,4 +23,9 @@ class BlogController(
     @RequestMapping(value = ["/{id}"], method = [RequestMethod.GET])
     fun item(@PathVariable("id") id: Int): BlogArticleJson =
             blogUseCase.getItem(id) ?: throw NotFoundException()
+
+
+    @RequestMapping(value = ["/{id}/read"], method = [RequestMethod.POST])
+    fun read(@PathVariable("id") id: Int) =
+            blogUseCase.readItem(id)
 }
