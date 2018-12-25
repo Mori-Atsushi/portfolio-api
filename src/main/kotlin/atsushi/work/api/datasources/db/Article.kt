@@ -1,7 +1,6 @@
 package atsushi.work.api.datasources.db
 
 import atsushi.work.api.entities.BlogArticle
-import atsushi.work.api.entities.BlogArticleReadHistory
 import org.joda.time.DateTime
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
