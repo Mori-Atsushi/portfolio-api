@@ -20,6 +20,10 @@ class BlogController(
             num ?: 20
     )
 
+    @RequestMapping(value = ["/popular"], method = [RequestMethod.GET])
+    fun popularList(): BlogArticleListJson =
+            blogUseCase.getPopularList()
+
     @RequestMapping(value = ["/{id}"], method = [RequestMethod.GET])
     fun item(@PathVariable("id") id: Int): BlogArticleJson =
             blogUseCase.getItem(id) ?: throw NotFoundException()

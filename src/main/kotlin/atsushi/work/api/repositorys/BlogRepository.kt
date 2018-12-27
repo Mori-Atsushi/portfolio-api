@@ -14,6 +14,12 @@ class BlogRepository(
             categoryIds: List<Int>? = null
     ): List<BlogArticle> = article.getList(limit, offset, categoryIds)
 
+    fun getPopularList(
+            limit: Int,
+            offset: Int = 0
+    ): List<BlogArticle> =
+            article.getPopularList(limit, offset)
+
     fun getItem(id: Int): BlogArticle? = article.getItem(id)
 
     fun isExistPrev(
