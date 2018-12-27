@@ -45,6 +45,20 @@ class BlogUseCase(
         return article?.toJson(categories)
     }
 
+    fun getPopularList(): BlogArticleListJson {
+        val articles = blogRepository.getPopularList()
+        val list = articles.map {
+            it.toJson(it.categoryId?.let { id ->
+                categoryRepository.getAncestors(id)
+            })
+        }
+        return BlogArticleListJson(
+                null,
+                null,
+                list
+        )
+    }
+
     /**
      * ブログが読まれたことを保存する
      *
