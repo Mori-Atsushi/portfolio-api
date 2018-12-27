@@ -46,7 +46,7 @@ class BlogUseCase(
     }
 
     fun getPopularList(): BlogArticleListJson {
-        val articles = blogRepository.getPopularList()
+        val articles = blogRepository.getPopularList(20)
         val list = articles.map {
             it.toJson(it.categoryId?.let { id ->
                 categoryRepository.getAncestors(id)

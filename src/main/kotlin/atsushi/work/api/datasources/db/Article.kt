@@ -55,12 +55,16 @@ class Article(
                 .toBlogArticleList()
     }
 
-    fun getPopularList(): List<BlogArticle> = transaction {
+    fun getPopularList(
+            limit: Int,
+            offset: Int = 0
+    ): List<BlogArticle> = transaction {
         (ArticlesTable innerJoin ArticlesReadTable)
                 .slice(ArticlesTable.columns + listOf(ArticlesReadTable.id.count()))
                 .select { isPublic() }
                 .orderBy(ArticlesReadTable.id.count(), false)
                 .groupBy(ArticlesReadTable.articleId)
+                .limit(limit, offset = offset)
                 .toBlogArticleList()
     }
 
