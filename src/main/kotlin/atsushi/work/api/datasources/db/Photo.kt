@@ -1,5 +1,6 @@
 package atsushi.work.api.datasources.db
 
+import atsushi.work.api.entities.BlogArticle
 import atsushi.work.api.entities.PhotoData
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -42,6 +43,15 @@ class Photo(
                 .orderBy(PhotosTable.createAt to false)
                 .limit(limit, offset = offset)
                 .toPhotoDataList()
+    }
+
+    fun getItem(id: Int): PhotoData? = transaction {
+        PhotosTable
+                .select {
+                    PhotosTable.id eq id
+                }
+                .toPhotoDataList()
+                .firstOrNull()
     }
 }
 

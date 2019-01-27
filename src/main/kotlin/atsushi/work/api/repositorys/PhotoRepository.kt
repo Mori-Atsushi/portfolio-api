@@ -33,4 +33,7 @@ class PhotoRepository(
         val nextArticle = getList(1, offset + limit)
         return nextArticle.isNotEmpty()
     }
+
+    fun getItem(id: Int): PhotoData? =
+            photo.getItem(id)
 }

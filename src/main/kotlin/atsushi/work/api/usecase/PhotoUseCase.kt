@@ -1,5 +1,6 @@
 package atsushi.work.api.usecase
 
+import atsushi.work.api.entities.PhotoDataJson
 import atsushi.work.api.entities.PhotoDataListJson
 import atsushi.work.api.helper.mapper.toJson
 import atsushi.work.api.repositorys.PhotoRepository
@@ -31,4 +32,7 @@ class PhotoUseCase(
                 list
         )
     }
+
+    fun getItem(id: Int): PhotoDataJson? =
+            photoRepository.getItem(id)?.toJson()
 }

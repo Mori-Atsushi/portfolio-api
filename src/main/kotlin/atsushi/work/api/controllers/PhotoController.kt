@@ -1,11 +1,10 @@
 package atsushi.work.api.controllers
 
+import atsushi.work.api.entities.PhotoDataJson
 import atsushi.work.api.entities.PhotoDataListJson
+import atsushi.work.api.helper.exception.NotFoundException
 import atsushi.work.api.usecase.PhotoUseCase
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/photo")
@@ -20,4 +19,8 @@ class PhotoController(
             page ?: 1,
             num ?: 20
     )
+
+    @RequestMapping(value = ["/{id}"], method = [RequestMethod.GET])
+    fun item(@PathVariable("id") id: Int): PhotoDataJson =
+            photoUseCase.getItem(id) ?: throw NotFoundException()
 }
