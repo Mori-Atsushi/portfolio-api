@@ -57,11 +57,12 @@ class Article(
 
     fun getPopularList(
         limit: Int,
-        offset: Int = 0
+        offset: Int = 0,
+        thresholdDay: DateTime
     ): List<BlogArticle> = transaction {
         (ArticlesTable innerJoin ArticlesReadTable)
                 .slice(ArticlesTable.columns + listOf(ArticlesReadTable.id.count()))
-                .select { isPublic() }
+                .select { isPublic() and (ArticlesReadTable.readAt greater thresholdDay) }
                 .orderBy(ArticlesReadTable.id.count(), false)
                 .groupBy(ArticlesReadTable.articleId)
                 .limit(limit, offset = offset)

@@ -2,6 +2,7 @@ package atsushi.work.api.repositorys
 
 import atsushi.work.api.datasources.db.Article
 import atsushi.work.api.entities.BlogArticle
+import org.joda.time.DateTime
 import org.springframework.stereotype.Component
 
 @Component
@@ -16,9 +17,10 @@ class BlogRepository(
 
     fun getPopularList(
         limit: Int,
-        offset: Int = 0
+        offset: Int = 0,
+        thresholdDay: DateTime
     ): List<BlogArticle> =
-            article.getPopularList(limit, offset)
+            article.getPopularList(limit, offset, thresholdDay)
 
     fun getItem(id: Int): BlogArticle? = article.getItem(id)
 
