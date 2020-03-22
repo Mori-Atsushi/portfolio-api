@@ -5,7 +5,7 @@ import atsushi.work.api.entities.BlogArticleJson
 import atsushi.work.api.entities.CategoryData
 
 fun BlogArticle.toJson(
-        categories: List<CategoryData>? = null
+    categories: List<CategoryData>? = null
 ): BlogArticleJson = BlogArticleJson(
         this.id,
         this.title,

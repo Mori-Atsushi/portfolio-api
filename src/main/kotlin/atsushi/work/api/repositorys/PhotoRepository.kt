@@ -9,13 +9,13 @@ class PhotoRepository(
     val photo: Photo
 ) {
     fun getList(
-            limit: Int,
-            offset: Int
+        limit: Int,
+        offset: Int
     ): List<PhotoData> = photo.getList(limit, offset)
 
     fun isExistPrev(
-            limit: Int,
-            offset: Int
+        limit: Int,
+        offset: Int
     ): Boolean {
         val prevArticle =
                 if (offset > 0) {
@@ -27,8 +27,8 @@ class PhotoRepository(
     }
 
     fun isExistNext(
-            limit: Int,
-            offset: Int
+        limit: Int,
+        offset: Int
     ): Boolean {
         val nextArticle = getList(1, offset + limit)
         return nextArticle.isNotEmpty()

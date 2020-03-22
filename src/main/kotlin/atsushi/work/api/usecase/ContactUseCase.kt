@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class ContactUseCase(
-        val contactRepository: ContactRepository
+    val contactRepository: ContactRepository
 ) {
     fun send(value: ContactRequest) {
         contactRepository.sendSlack(value)

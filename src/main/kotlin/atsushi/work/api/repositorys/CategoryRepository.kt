@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class CategoryRepository(
-        val category: Category
+    val category: Category
 ) {
     fun getList() = category.getList()
     fun getDescendant(name: String): List<CategoryData>? = category.getDescendant(name)

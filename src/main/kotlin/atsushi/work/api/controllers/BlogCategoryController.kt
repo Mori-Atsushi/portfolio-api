@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/blog/category")
 class BlogCategoryController(
-        val useCase: CategoryUseCase
+    val useCase: CategoryUseCase
 ) {
     @RequestMapping(method = [RequestMethod.GET])
     fun list(): List<CategoryTreeData> = useCase.getList()
 
     @RequestMapping(value = ["/{name}"], method = [RequestMethod.GET])
     fun item(
-            @PathVariable("name") name: String,
-            @RequestParam("page") page: Int?,
-            @RequestParam("num") num: Int?
+        @PathVariable("name") name: String,
+        @RequestParam("page") page: Int?,
+        @RequestParam("num") num: Int?
     ): BlogArticleListJson =
             useCase.getItem(
                     name,

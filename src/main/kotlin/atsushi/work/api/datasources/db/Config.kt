@@ -5,12 +5,12 @@ import org.springframework.stereotype.Component
 
 @Component
 class Config(
-        private val properties: Properties
+    private val properties: Properties
 ) {
     private var database: Database? = null
 
     fun setup() {
-        if(database == null) {
+        if (database == null) {
             database = Database.connect(
                     properties.fullUrl,
                     properties.driverClassName,

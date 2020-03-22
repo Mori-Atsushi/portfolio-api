@@ -6,26 +6,26 @@ import org.springframework.stereotype.Component
 
 @Component
 class BlogRepository(
-        val article: Article
+    val article: Article
 ) {
     fun getList(
-            limit: Int,
-            offset: Int,
-            categoryIds: List<Int>? = null
+        limit: Int,
+        offset: Int,
+        categoryIds: List<Int>? = null
     ): List<BlogArticle> = article.getList(limit, offset, categoryIds)
 
     fun getPopularList(
-            limit: Int,
-            offset: Int = 0
+        limit: Int,
+        offset: Int = 0
     ): List<BlogArticle> =
             article.getPopularList(limit, offset)
 
     fun getItem(id: Int): BlogArticle? = article.getItem(id)
 
     fun isExistPrev(
-            limit: Int,
-            offset: Int,
-            categoryIds: List<Int>? = null
+        limit: Int,
+        offset: Int,
+        categoryIds: List<Int>? = null
     ): Boolean {
         val prevArticle =
                 if (offset > 0) {
@@ -37,9 +37,9 @@ class BlogRepository(
     }
 
     fun isExistNext(
-            limit: Int,
-            offset: Int,
-            categoryIds: List<Int>? = null
+        limit: Int,
+        offset: Int,
+        categoryIds: List<Int>? = null
     ): Boolean {
         val nextArticle = getList(1, offset + limit, categoryIds)
         return nextArticle.isNotEmpty()

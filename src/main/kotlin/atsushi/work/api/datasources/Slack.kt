@@ -1,19 +1,19 @@
 package atsushi.work.api.datasources
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy
-import org.springframework.stereotype.Component
-import com.github.kittinunf.fuel.httpPost
 import com.fasterxml.jackson.module.kotlin.*
+import com.github.kittinunf.fuel.httpPost
 import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.stereotype.Component
 
 @Component
 class Slack(
-        private val properties: SlackProperties
+    private val properties: SlackProperties
 ) {
     fun sendAttachments(
-            text: String,
-            title: String? = null,
-            authorName: String? = null
+        text: String,
+        title: String? = null,
+        authorName: String? = null
     ) {
         val webhook = properties.webhookurl
         val body = SlackMessageRequest(
@@ -38,14 +38,13 @@ class SlackProperties {
     lateinit var webhookurl: String
 }
 
-
 data class SlackMessageRequest(
-        val attachments: List<SlackMessageAttachment>? = null
+    val attachments: List<SlackMessageAttachment>? = null
 )
 
 data class SlackMessageAttachment(
-        val fallback: String? = null,
-        val text: String? = null,
-        val authorName: String? = null,
-        val title: String? = null
+    val fallback: String? = null,
+    val text: String? = null,
+    val authorName: String? = null,
+    val title: String? = null
 )

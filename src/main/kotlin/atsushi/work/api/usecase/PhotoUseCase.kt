@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class PhotoUseCase(
-        val photoRepository: PhotoRepository
+    val photoRepository: PhotoRepository
 ) {
     fun getJsonList(page: Int, num: Int): PhotoDataListJson {
         val offset = num * (page - 1)
@@ -20,7 +20,6 @@ class PhotoUseCase(
         val nextToken = if (photoRepository.isExistNext(num, offset)) {
             "?page=${page + 1}&num=$num"
         } else null
-
 
         val list = photos.map {
             it.toJson()

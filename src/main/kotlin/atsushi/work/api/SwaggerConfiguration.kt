@@ -2,10 +2,10 @@ package atsushi.work.api
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import springfox.documentation.swagger2.annotations.EnableSwagger2
 import springfox.documentation.builders.RequestHandlerSelectors
 import springfox.documentation.spi.DocumentationType
 import springfox.documentation.spring.web.plugins.Docket
+import springfox.documentation.swagger2.annotations.EnableSwagger2
 
 @EnableSwagger2
 @Configuration
@@ -17,5 +17,4 @@ class SwaggerConfiguration {
                 .apis(RequestHandlerSelectors.basePackage("atsushi.work.api"))
                 .build()
     }
-
 }

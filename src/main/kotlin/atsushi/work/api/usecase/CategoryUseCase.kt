@@ -1,6 +1,5 @@
 package atsushi.work.api.usecase
 
-import atsushi.work.api.entities.BlogArticleJson
 import atsushi.work.api.entities.BlogArticleListJson
 import atsushi.work.api.helper.mapper.toJson
 import atsushi.work.api.repositorys.BlogRepository
@@ -9,8 +8,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class CategoryUseCase(
-        val categoryRepository: CategoryRepository,
-        val blogRepository: BlogRepository
+    val categoryRepository: CategoryRepository,
+    val blogRepository: BlogRepository
 ) {
     fun getList() = categoryRepository.getList()
 

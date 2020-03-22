@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class ContactRepository(
-        val slack: Slack
+    val slack: Slack
 ) {
     fun sendSlack(value: ContactRequest) = slack.sendAttachments(
             text = value.message,

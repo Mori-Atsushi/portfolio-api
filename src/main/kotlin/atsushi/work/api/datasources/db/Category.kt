@@ -1,9 +1,8 @@
 package atsushi.work.api.datasources.db
 
-import atsushi.work.api.entities.BlogArticle
-import atsushi.work.api.entities.CategoryTreeData
 import atsushi.work.api.entities.CategoryData
 import atsushi.work.api.entities.CategoryDataWithParents
+import atsushi.work.api.entities.CategoryTreeData
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Component
@@ -21,7 +20,7 @@ object CategoryTreeTable : Table() {
 
 @Component
 class Category(
-        config: Config
+    config: Config
 ) {
     init {
         config.setup()
