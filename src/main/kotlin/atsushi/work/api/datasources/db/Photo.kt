@@ -1,6 +1,5 @@
 package atsushi.work.api.datasources.db
 
-import atsushi.work.api.entities.BlogArticle
 import atsushi.work.api.entities.PhotoData
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -25,7 +24,7 @@ object PhotosTable : Table() {
 
 @Component
 class Photo(
-        config: Config
+    config: Config
 ) {
     init {
         config.setup()
@@ -35,8 +34,8 @@ class Photo(
     }
 
     fun getList(
-            limit: Int,
-            offset: Int
+        limit: Int,
+        offset: Int
     ): List<PhotoData> = transaction {
         PhotosTable
                 .selectAll()

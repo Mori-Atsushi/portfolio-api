@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class BlogUseCase(
-        val blogRepository: BlogRepository,
-        val categoryRepository: CategoryRepository
+    val blogRepository: BlogRepository,
+    val categoryRepository: CategoryRepository
 ) {
     fun getJsonList(page: Int, num: Int): BlogArticleListJson {
         val offset = num * (page - 1)

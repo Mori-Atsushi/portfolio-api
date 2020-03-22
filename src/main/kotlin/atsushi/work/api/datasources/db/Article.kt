@@ -1,9 +1,9 @@
 package atsushi.work.api.datasources.db
 
 import atsushi.work.api.entities.BlogArticle
-import org.joda.time.DateTime
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.joda.time.DateTime
 import org.springframework.stereotype.Component
 
 object ArticlesTable : Table() {
@@ -27,7 +27,7 @@ object ArticlesReadTable : Table() {
 
 @Component
 class Article(
-        config: Config
+    config: Config
 ) {
     init {
         config.setup()
@@ -38,9 +38,9 @@ class Article(
     }
 
     fun getList(
-            limit: Int,
-            offset: Int,
-            categoryIds: List<Int>? = null
+        limit: Int,
+        offset: Int,
+        categoryIds: List<Int>? = null
     ): List<BlogArticle> = transaction {
         ArticlesTable
                 .select {
@@ -56,8 +56,8 @@ class Article(
     }
 
     fun getPopularList(
-            limit: Int,
-            offset: Int = 0
+        limit: Int,
+        offset: Int = 0
     ): List<BlogArticle> = transaction {
         (ArticlesTable innerJoin ArticlesReadTable)
                 .slice(ArticlesTable.columns + listOf(ArticlesReadTable.id.count()))
