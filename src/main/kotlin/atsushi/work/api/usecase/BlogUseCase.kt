@@ -6,6 +6,7 @@ import atsushi.work.api.helper.exception.NotFoundException
 import atsushi.work.api.helper.mapper.toJson
 import atsushi.work.api.repositorys.BlogRepository
 import atsushi.work.api.repositorys.CategoryRepository
+import org.joda.time.DateTime
 import org.springframework.stereotype.Component
 
 @Component
@@ -46,7 +47,10 @@ class BlogUseCase(
     }
 
     fun getPopularList(): BlogArticleListJson {
-        val articles = blogRepository.getPopularList(20)
+        val articles = blogRepository.getPopularList(
+            limit = 20,
+            thresholdDay = DateTime.now().minusDays(90)
+        )
         val list = articles.map {
             it.toJson(it.categoryId?.let { id ->
                 categoryRepository.getAncestors(id)
