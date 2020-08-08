@@ -1,6 +1,6 @@
 package atsushi.work.api.controllers
 
-import atsushi.work.api.entities.BlogArticleListJson
+import atsushi.work.api.controllers.response.BlogArticleListJson
 import atsushi.work.api.entities.CategoryTreeData
 import atsushi.work.api.usecase.CategoryUseCase
 import org.springframework.web.bind.annotation.*

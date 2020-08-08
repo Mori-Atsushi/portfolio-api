@@ -1,6 +1,6 @@
 package atsushi.work.api.usecase
 
-import atsushi.work.api.entities.BlogArticleListJson
+import atsushi.work.api.controllers.response.BlogArticleListJson
 import atsushi.work.api.helper.mapper.toJson
 import atsushi.work.api.repositorys.BlogRepository
 import atsushi.work.api.repositorys.CategoryRepository

@@ -1,7 +1,7 @@
 package atsushi.work.api.usecase
 
-import atsushi.work.api.entities.BlogArticleJson
-import atsushi.work.api.entities.BlogArticleListJson
+import atsushi.work.api.controllers.response.BlogArticleJson
+import atsushi.work.api.controllers.response.BlogArticleListJson
 import atsushi.work.api.helper.exception.NotFoundException
 import atsushi.work.api.helper.mapper.toJson
 import atsushi.work.api.repositorys.BlogRepository

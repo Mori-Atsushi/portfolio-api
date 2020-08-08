@@ -1,7 +1,7 @@
 package atsushi.work.api.helper.mapper
 
 import atsushi.work.api.entities.PhotoData
-import atsushi.work.api.entities.PhotoDataJson
+import atsushi.work.api.controllers.response.PhotoDataJson
 
 fun PhotoData.toJson() = PhotoDataJson(
         this.id,

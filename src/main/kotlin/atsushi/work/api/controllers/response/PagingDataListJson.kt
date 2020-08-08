@@ -1,4 +1,4 @@
-package atsushi.work.api.entities
+package atsushi.work.api.controllers.response
 
 interface PagingDataListJson<T> {
     val nextToken: String?

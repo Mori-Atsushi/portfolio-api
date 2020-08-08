@@ -1,4 +1,6 @@
-package atsushi.work.api.entities
+package atsushi.work.api.controllers.response
+
+import atsushi.work.api.entities.CategoryData
 
 data class BlogArticleJson(
     val id: Int,

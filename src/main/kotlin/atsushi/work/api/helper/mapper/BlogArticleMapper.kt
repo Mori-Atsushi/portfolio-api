@@ -1,7 +1,7 @@
 package atsushi.work.api.helper.mapper
 
 import atsushi.work.api.entities.BlogArticle
-import atsushi.work.api.entities.BlogArticleJson
+import atsushi.work.api.controllers.response.BlogArticleJson
 import atsushi.work.api.entities.CategoryData
 
 fun BlogArticle.toJson(

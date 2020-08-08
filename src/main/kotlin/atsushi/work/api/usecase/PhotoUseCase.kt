@@ -1,7 +1,7 @@
 package atsushi.work.api.usecase
 
-import atsushi.work.api.entities.PhotoDataJson
-import atsushi.work.api.entities.PhotoDataListJson
+import atsushi.work.api.controllers.response.PhotoDataJson
+import atsushi.work.api.controllers.response.PhotoDataListJson
 import atsushi.work.api.helper.mapper.toJson
 import atsushi.work.api.repositorys.PhotoRepository
 import org.springframework.stereotype.Component

@@ -1,4 +1,4 @@
-package atsushi.work.api.entities
+package atsushi.work.api.controllers.response
 
 data class PhotoDataListJson(
     override val nextToken: String?,

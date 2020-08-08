@@ -1,7 +1,7 @@
 package atsushi.work.api.controllers
 
-import atsushi.work.api.entities.PhotoDataJson
-import atsushi.work.api.entities.PhotoDataListJson
+import atsushi.work.api.controllers.response.PhotoDataJson
+import atsushi.work.api.controllers.response.PhotoDataListJson
 import atsushi.work.api.helper.exception.NotFoundException
 import atsushi.work.api.usecase.PhotoUseCase
 import org.springframework.web.bind.annotation.*
