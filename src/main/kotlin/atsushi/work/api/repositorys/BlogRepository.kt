@@ -1,28 +1,28 @@
 package atsushi.work.api.repositorys
 
-import atsushi.work.api.datasources.db.Article
-import atsushi.work.api.entities.BlogArticle
+import atsushi.work.api.datasources.db.ArticleDB
+import atsushi.work.api.model.BlogArticle
 import org.joda.time.DateTime
 import org.springframework.stereotype.Component
 
 @Component
 class BlogRepository(
-    val article: Article
+    val articleDB: ArticleDB
 ) {
     fun getList(
         limit: Int,
         offset: Int,
         categoryIds: List<Int>? = null
-    ): List<BlogArticle> = article.getList(limit, offset, categoryIds)
+    ): List<BlogArticle> = articleDB.getList(limit, offset, categoryIds)
 
     fun getPopularList(
         limit: Int,
         offset: Int = 0,
         thresholdDay: DateTime
     ): List<BlogArticle> =
-            article.getPopularList(limit, offset, thresholdDay)
+        articleDB.getPopularList(limit, offset, thresholdDay)
 
-    fun getItem(id: Int): BlogArticle? = article.getItem(id)
+    fun getItem(id: Int): BlogArticle? = articleDB.getItem(id)
 
     fun isExistPrev(
         limit: Int,
@@ -30,11 +30,11 @@ class BlogRepository(
         categoryIds: List<Int>? = null
     ): Boolean {
         val prevArticle =
-                if (offset > 0) {
-                    getList(1, offset - 1, categoryIds)
-                } else {
-                    emptyList()
-                }
+            if (offset > 0) {
+                getList(1, offset - 1, categoryIds)
+            } else {
+                emptyList()
+            }
         return prevArticle.isNotEmpty()
     }
 
@@ -53,6 +53,6 @@ class BlogRepository(
      * @args id ブログID
      */
     fun readItem(id: Int) {
-        article.readItem(id)
+        articleDB.readItem(id)
     }
 }

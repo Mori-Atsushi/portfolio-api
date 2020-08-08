@@ -14,7 +14,7 @@ class SwaggerConfiguration {
     @Bean
     fun customDocket(): Docket {
         return Docket(DocumentationType.SWAGGER_2).select()
-                .apis(RequestHandlerSelectors.basePackage("atsushi.work.api"))
-                .build()
+            .apis(RequestHandlerSelectors.basePackage("atsushi.work.api"))
+            .build()
     }
 }

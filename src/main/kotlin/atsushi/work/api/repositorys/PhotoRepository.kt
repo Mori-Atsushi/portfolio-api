@@ -1,28 +1,28 @@
 package atsushi.work.api.repositorys
 
-import atsushi.work.api.datasources.db.Photo
-import atsushi.work.api.entities.PhotoData
+import atsushi.work.api.datasources.db.PhotoDB
+import atsushi.work.api.model.Photo
 import org.springframework.stereotype.Component
 
 @Component
 class PhotoRepository(
-    val photo: Photo
+    val photoDB: PhotoDB
 ) {
     fun getList(
         limit: Int,
         offset: Int
-    ): List<PhotoData> = photo.getList(limit, offset)
+    ): List<Photo> = photoDB.getList(limit, offset)
 
     fun isExistPrev(
         limit: Int,
         offset: Int
     ): Boolean {
         val prevArticle =
-                if (offset > 0) {
-                    getList(1, offset - 1)
-                } else {
-                    emptyList()
-                }
+            if (offset > 0) {
+                getList(1, offset - 1)
+            } else {
+                emptyList()
+            }
         return prevArticle.isNotEmpty()
     }
 
@@ -34,6 +34,6 @@ class PhotoRepository(
         return nextArticle.isNotEmpty()
     }
 
-    fun getItem(id: Int): PhotoData? =
-            photo.getItem(id)
+    fun getItem(id: Int): Photo? =
+        photoDB.getItem(id)
 }
