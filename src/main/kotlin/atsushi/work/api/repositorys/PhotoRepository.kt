@@ -18,11 +18,11 @@ class PhotoRepository(
         offset: Int
     ): Boolean {
         val prevArticle =
-                if (offset > 0) {
-                    getList(1, offset - 1)
-                } else {
-                    emptyList()
-                }
+            if (offset > 0) {
+                getList(1, offset - 1)
+            } else {
+                emptyList()
+            }
         return prevArticle.isNotEmpty()
     }
 
@@ -35,5 +35,5 @@ class PhotoRepository(
     }
 
     fun getItem(id: Int): Photo? =
-            photoDB.getItem(id)
+        photoDB.getItem(id)
 }

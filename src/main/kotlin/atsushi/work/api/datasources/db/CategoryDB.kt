@@ -4,8 +4,8 @@ import atsushi.work.api.datasources.db.config.Config
 import atsushi.work.api.datasources.db.table.CategoriesTable
 import atsushi.work.api.datasources.db.table.CategoryTreeTable
 import atsushi.work.api.model.Category
-import atsushi.work.api.model.CategoryWithParents
 import atsushi.work.api.model.CategoryTree
+import atsushi.work.api.model.CategoryWithParents
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Component
@@ -31,7 +31,8 @@ class CategoryDB(
             .leftJoin(
                 otherTable = categoryTreeAlias,
                 onColumn = { CategoriesTable.id },
-                otherColumn = { categoryTreeAlias[CategoryTreeTable.descendant] })
+                otherColumn = { categoryTreeAlias[CategoryTreeTable.descendant] }
+            )
             .selectAll()
             .map {
                 CategoryWithParents(
@@ -56,7 +57,8 @@ class CategoryDB(
                 .innerJoin(
                     otherTable = CategoryTreeTable,
                     onColumn = { CategoriesTable.id },
-                    otherColumn = { CategoryTreeTable.descendant })
+                    otherColumn = { CategoryTreeTable.descendant }
+                )
                 .select {
                     CategoryTreeTable.ancestor.inList(
                         listOf(it.id)
