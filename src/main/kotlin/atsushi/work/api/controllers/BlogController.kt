@@ -3,7 +3,7 @@ package atsushi.work.api.controllers
 import atsushi.work.api.controllers.mapper.toResponse
 import atsushi.work.api.controllers.response.BlogArticleResponse
 import atsushi.work.api.controllers.response.BlogArticleListResponse
-import atsushi.work.api.helper.exception.NotFoundException
+import atsushi.work.api.model.exception.NotFoundException
 import atsushi.work.api.usecase.BlogUseCase
 import org.springframework.web.bind.annotation.*
 

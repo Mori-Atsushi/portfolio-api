@@ -1,7 +1,7 @@
 package atsushi.work.api.controllers.util
 
 import atsushi.work.api.controllers.response.ErrorResponse
-import atsushi.work.api.helper.exception.NotFoundException
+import atsushi.work.api.model.exception.NotFoundException
 import javax.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
