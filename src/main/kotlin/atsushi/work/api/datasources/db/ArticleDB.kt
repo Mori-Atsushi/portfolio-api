@@ -10,7 +10,7 @@ import org.joda.time.DateTime
 import org.springframework.stereotype.Component
 
 @Component
-class Article(
+class ArticleDB(
     config: Config
 ) {
     init {

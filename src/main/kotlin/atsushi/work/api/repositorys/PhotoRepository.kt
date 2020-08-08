@@ -1,17 +1,17 @@
 package atsushi.work.api.repositorys
 
-import atsushi.work.api.datasources.db.Photo
+import atsushi.work.api.datasources.db.PhotoDB
 import atsushi.work.api.entities.PhotoData
 import org.springframework.stereotype.Component
 
 @Component
 class PhotoRepository(
-    val photo: Photo
+    val photoDB: PhotoDB
 ) {
     fun getList(
         limit: Int,
         offset: Int
-    ): List<PhotoData> = photo.getList(limit, offset)
+    ): List<PhotoData> = photoDB.getList(limit, offset)
 
     fun isExistPrev(
         limit: Int,
@@ -35,5 +35,5 @@ class PhotoRepository(
     }
 
     fun getItem(id: Int): PhotoData? =
-            photo.getItem(id)
+            photoDB.getItem(id)
 }

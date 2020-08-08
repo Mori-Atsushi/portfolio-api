@@ -11,7 +11,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Component
 
 @Component
-class Category(
+class CategoryDB(
     config: Config
 ) {
     init {
