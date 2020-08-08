@@ -1,7 +1,7 @@
 package atsushi.work.api.usecase
 
 import atsushi.work.api.model.Contact
-import atsushi.work.api.repositorys.ContactRepository
+import atsushi.work.api.repository.ContactRepository
 import org.springframework.stereotype.Component
 
 @Component
