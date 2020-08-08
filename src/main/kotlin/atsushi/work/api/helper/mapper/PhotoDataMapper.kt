@@ -1,9 +1,9 @@
 package atsushi.work.api.helper.mapper
 
-import atsushi.work.api.model.PhotoData
+import atsushi.work.api.model.Photo
 import atsushi.work.api.controllers.response.PhotoDataResponse
 
-fun PhotoData.toJson() = PhotoDataResponse(
+fun Photo.toJson() = PhotoDataResponse(
         this.id,
         this.title,
         this.description,

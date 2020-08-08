@@ -2,7 +2,7 @@ package atsushi.work.api.datasources.db
 
 import atsushi.work.api.datasources.db.config.Config
 import atsushi.work.api.datasources.db.table.PhotosTable
-import atsushi.work.api.model.PhotoData
+import atsushi.work.api.model.Photo
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Component
@@ -21,7 +21,7 @@ class PhotoDB(
     fun getList(
         limit: Int,
         offset: Int
-    ): List<PhotoData> = transaction {
+    ): List<Photo> = transaction {
         PhotosTable
             .selectAll()
             .orderBy(PhotosTable.createAt to false)
@@ -29,7 +29,7 @@ class PhotoDB(
             .toPhotoDataList()
     }
 
-    fun getItem(id: Int): PhotoData? = transaction {
+    fun getItem(id: Int): Photo? = transaction {
         PhotosTable
             .select {
                 PhotosTable.id eq id
@@ -38,9 +38,9 @@ class PhotoDB(
             .firstOrNull()
     }
 
-    private fun Query.toPhotoDataList(): List<PhotoData> =
+    private fun Query.toPhotoDataList(): List<Photo> =
         this.map {
-            PhotoData(
+            Photo(
                 it[PhotosTable.id],
                 it[PhotosTable.title],
                 it[PhotosTable.description],

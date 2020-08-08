@@ -2,7 +2,7 @@ package atsushi.work.api.model
 
 import org.joda.time.DateTime
 
-data class PhotoData(
+data class Photo(
     val id: Int,
     val title: String,
     val description: String,
