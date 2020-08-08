@@ -24,61 +24,61 @@ class Category(
 
     fun getList(): List<CategoryTreeData> = transaction {
         val categoryTreeAlias = CategoryTreeTable
-                .select { CategoryTreeTable.pathLength eq 1 }
-                .alias("categoryTree")
+            .select { CategoryTreeTable.pathLength eq 1 }
+            .alias("categoryTree")
 
         CategoriesTable
-                .leftJoin(
-                        otherTable = categoryTreeAlias,
-                        onColumn = { CategoriesTable.id },
-                        otherColumn = { categoryTreeAlias[CategoryTreeTable.descendant] })
-                .selectAll()
-                .map {
-                    CategoryDataWithParents(
-                            it[categoryTreeAlias[CategoryTreeTable.ancestor]],
-                            it[CategoriesTable.id],
-                            it[CategoriesTable.name]
-                    )
-                }
-                .toTree()
+            .leftJoin(
+                otherTable = categoryTreeAlias,
+                onColumn = { CategoriesTable.id },
+                otherColumn = { categoryTreeAlias[CategoryTreeTable.descendant] })
+            .selectAll()
+            .map {
+                CategoryDataWithParents(
+                    it[categoryTreeAlias[CategoryTreeTable.ancestor]],
+                    it[CategoriesTable.id],
+                    it[CategoriesTable.name]
+                )
+            }
+            .toTree()
     }
 
     fun getItem(name: String): CategoryData? = transaction {
         CategoriesTable
-                .select { CategoriesTable.name eq name }
-                .toCategoryList()
-                .firstOrNull()
+            .select { CategoriesTable.name eq name }
+            .toCategoryList()
+            .firstOrNull()
     }
 
     fun getDescendant(name: String): List<CategoryData>? = transaction {
         getItem(name)?.let {
             CategoriesTable
-                    .innerJoin(
-                            otherTable = CategoryTreeTable,
-                            onColumn = { CategoriesTable.id },
-                            otherColumn = { CategoryTreeTable.descendant })
-                    .select {
-                        CategoryTreeTable.ancestor.inList(
-                                listOf(it.id)
-                        )
-                    }
-                    .orderBy(CategoryTreeTable.pathLength to false)
-                    .toCategoryList()
+                .innerJoin(
+                    otherTable = CategoryTreeTable,
+                    onColumn = { CategoriesTable.id },
+                    otherColumn = { CategoryTreeTable.descendant })
+                .select {
+                    CategoryTreeTable.ancestor.inList(
+                        listOf(it.id)
+                    )
+                }
+                .orderBy(CategoryTreeTable.pathLength to false)
+                .toCategoryList()
         }
     }
 
     fun getAncestors(id: Int): List<CategoryData> = transaction {
         CategoriesTable
-                .innerJoin(
-                        otherTable = CategoryTreeTable,
-                        onColumn = { CategoriesTable.id },
-                        otherColumn = { CategoryTreeTable.ancestor }
-                )
-                .select {
-                    CategoryTreeTable.descendant eq id
-                }
-                .orderBy(CategoryTreeTable.pathLength to false)
-                .toCategoryList()
+            .innerJoin(
+                otherTable = CategoryTreeTable,
+                onColumn = { CategoriesTable.id },
+                otherColumn = { CategoryTreeTable.ancestor }
+            )
+            .select {
+                CategoryTreeTable.descendant eq id
+            }
+            .orderBy(CategoryTreeTable.pathLength to false)
+            .toCategoryList()
     }
 
     private fun Query.toCategoryList(): List<CategoryData> = this.map {

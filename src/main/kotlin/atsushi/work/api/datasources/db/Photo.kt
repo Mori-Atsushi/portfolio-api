@@ -23,19 +23,19 @@ class Photo(
         offset: Int
     ): List<PhotoData> = transaction {
         PhotosTable
-                .selectAll()
-                .orderBy(PhotosTable.createAt to false)
-                .limit(limit, offset = offset)
-                .toPhotoDataList()
+            .selectAll()
+            .orderBy(PhotosTable.createAt to false)
+            .limit(limit, offset = offset)
+            .toPhotoDataList()
     }
 
     fun getItem(id: Int): PhotoData? = transaction {
         PhotosTable
-                .select {
-                    PhotosTable.id eq id
-                }
-                .toPhotoDataList()
-                .firstOrNull()
+            .select {
+                PhotosTable.id eq id
+            }
+            .toPhotoDataList()
+            .firstOrNull()
     }
 
     private fun Query.toPhotoDataList(): List<PhotoData> =
