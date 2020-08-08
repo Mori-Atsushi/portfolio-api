@@ -1,4 +1,4 @@
-package atsushi.work.api.model
+package atsushi.work.api.controllers.request
 
 data class ContactRequest(
     val name: String,

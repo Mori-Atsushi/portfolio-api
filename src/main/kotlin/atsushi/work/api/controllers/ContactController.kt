@@ -1,6 +1,6 @@
 package atsushi.work.api.controllers
 
-import atsushi.work.api.model.ContactRequest
+import atsushi.work.api.controllers.request.ContactRequest
 import atsushi.work.api.usecase.ContactUseCase
 import org.springframework.web.bind.annotation.*
 
