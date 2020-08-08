@@ -1,5 +1,6 @@
 package atsushi.work.api.controllers
 
+import atsushi.work.api.controllers.mapper.toResponse
 import atsushi.work.api.controllers.response.BlogArticleResponse
 import atsushi.work.api.controllers.response.BlogArticleListResponse
 import atsushi.work.api.helper.exception.NotFoundException
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/blog")
 class BlogController(
-    val blogUseCase: BlogUseCase
+    private val blogUseCase: BlogUseCase
 ) {
     @RequestMapping(method = [RequestMethod.GET])
     fun list(
@@ -18,15 +19,15 @@ class BlogController(
     ): BlogArticleListResponse = blogUseCase.getList(
             page ?: 1,
             num ?: 20
-    )
+    ).toResponse()
 
     @RequestMapping(value = ["/popular"], method = [RequestMethod.GET])
     fun popularList(): BlogArticleListResponse =
-            blogUseCase.getPopularList()
+            blogUseCase.getPopularList().toResponse()
 
     @RequestMapping(value = ["/{id}"], method = [RequestMethod.GET])
     fun item(@PathVariable("id") id: Int): BlogArticleResponse =
-            blogUseCase.getItem(id) ?: throw NotFoundException()
+            blogUseCase.getItem(id)?.toResponse() ?: throw NotFoundException()
 
     @RequestMapping(value = ["/{id}/read"], method = [RequestMethod.POST])
     fun read(@PathVariable("id") id: Int) =
