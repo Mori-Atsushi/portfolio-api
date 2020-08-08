@@ -1,4 +1,4 @@
-package atsushi.work.api.datasources.db
+package atsushi.work.api.datasources.db.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.stereotype.Component

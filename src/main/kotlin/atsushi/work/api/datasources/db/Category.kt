@@ -1,5 +1,6 @@
 package atsushi.work.api.datasources.db
 
+import atsushi.work.api.datasources.db.config.Config
 import atsushi.work.api.datasources.db.table.CategoriesTable
 import atsushi.work.api.datasources.db.table.CategoryTreeTable
 import atsushi.work.api.entities.CategoryData

@@ -1,4 +1,4 @@
-package atsushi.work.api.datasources.db
+package atsushi.work.api.datasources.db.config
 
 import org.jetbrains.exposed.sql.Database
 import org.springframework.stereotype.Component
@@ -12,10 +12,10 @@ class Config(
     fun setup() {
         if (database == null) {
             database = Database.connect(
-                    properties.fullUrl,
-                    properties.driverClassName,
-                    properties.username,
-                    properties.password
+                properties.fullUrl,
+                properties.driverClassName,
+                properties.username,
+                properties.password
             )
         }
     }

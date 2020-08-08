@@ -1,5 +1,6 @@
 package atsushi.work.api.datasources.db
 
+import atsushi.work.api.datasources.db.config.Config
 import atsushi.work.api.datasources.db.table.PhotosTable
 import atsushi.work.api.entities.PhotoData
 import org.jetbrains.exposed.sql.*
