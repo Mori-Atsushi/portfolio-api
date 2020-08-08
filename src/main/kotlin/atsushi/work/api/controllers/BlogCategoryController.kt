@@ -1,6 +1,6 @@
 package atsushi.work.api.controllers
 
-import atsushi.work.api.controllers.response.BlogArticleListJson
+import atsushi.work.api.controllers.response.BlogArticleListResponse
 import atsushi.work.api.entities.CategoryTreeData
 import atsushi.work.api.usecase.CategoryUseCase
 import org.springframework.web.bind.annotation.*
@@ -18,7 +18,7 @@ class BlogCategoryController(
         @PathVariable("name") name: String,
         @RequestParam("page") page: Int?,
         @RequestParam("num") num: Int?
-    ): BlogArticleListJson =
+    ): BlogArticleListResponse =
             useCase.getItem(
                     name,
                     page ?: 1,

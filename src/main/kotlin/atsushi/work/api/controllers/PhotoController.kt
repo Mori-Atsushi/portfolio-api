@@ -1,7 +1,7 @@
 package atsushi.work.api.controllers
 
-import atsushi.work.api.controllers.response.PhotoDataJson
-import atsushi.work.api.controllers.response.PhotoDataListJson
+import atsushi.work.api.controllers.response.PhotoDataResponse
+import atsushi.work.api.controllers.response.PhotoDataListResponse
 import atsushi.work.api.helper.exception.NotFoundException
 import atsushi.work.api.usecase.PhotoUseCase
 import org.springframework.web.bind.annotation.*
@@ -15,12 +15,12 @@ class PhotoController(
     fun list(
         @RequestParam("page") page: Int?,
         @RequestParam("num") num: Int?
-    ): PhotoDataListJson = photoUseCase.getJsonList(
+    ): PhotoDataListResponse = photoUseCase.getJsonList(
             page ?: 1,
             num ?: 20
     )
 
     @RequestMapping(value = ["/{id}"], method = [RequestMethod.GET])
-    fun item(@PathVariable("id") id: Int): PhotoDataJson =
+    fun item(@PathVariable("id") id: Int): PhotoDataResponse =
             photoUseCase.getItem(id) ?: throw NotFoundException()
 }

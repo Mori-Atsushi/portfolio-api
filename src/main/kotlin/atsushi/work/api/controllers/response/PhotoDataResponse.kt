@@ -1,6 +1,6 @@
 package atsushi.work.api.controllers.response
 
-data class PhotoDataJson(
+data class PhotoDataResponse(
     val id: Int,
     val title: String,
     val description: String,

@@ -1,7 +1,7 @@
 package atsushi.work.api.usecase
 
-import atsushi.work.api.controllers.response.PhotoDataJson
-import atsushi.work.api.controllers.response.PhotoDataListJson
+import atsushi.work.api.controllers.response.PhotoDataResponse
+import atsushi.work.api.controllers.response.PhotoDataListResponse
 import atsushi.work.api.helper.mapper.toJson
 import atsushi.work.api.repositorys.PhotoRepository
 import org.springframework.stereotype.Component
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 class PhotoUseCase(
     val photoRepository: PhotoRepository
 ) {
-    fun getJsonList(page: Int, num: Int): PhotoDataListJson {
+    fun getJsonList(page: Int, num: Int): PhotoDataListResponse {
         val offset = num * (page - 1)
         val photos = photoRepository.getList(num, offset)
 
@@ -25,13 +25,13 @@ class PhotoUseCase(
             it.toJson()
         }
 
-        return PhotoDataListJson(
+        return PhotoDataListResponse(
                 nextToken,
                 prevToken,
                 list
         )
     }
 
-    fun getItem(id: Int): PhotoDataJson? =
+    fun getItem(id: Int): PhotoDataResponse? =
             photoRepository.getItem(id)?.toJson()
 }

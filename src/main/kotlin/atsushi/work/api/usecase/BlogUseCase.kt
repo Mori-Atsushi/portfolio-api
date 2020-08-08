@@ -1,7 +1,7 @@
 package atsushi.work.api.usecase
 
-import atsushi.work.api.controllers.response.BlogArticleJson
-import atsushi.work.api.controllers.response.BlogArticleListJson
+import atsushi.work.api.controllers.response.BlogArticleResponse
+import atsushi.work.api.controllers.response.BlogArticleListResponnse
 import atsushi.work.api.helper.exception.NotFoundException
 import atsushi.work.api.helper.mapper.toJson
 import atsushi.work.api.repositorys.BlogRepository
@@ -14,7 +14,7 @@ class BlogUseCase(
     val blogRepository: BlogRepository,
     val categoryRepository: CategoryRepository
 ) {
-    fun getJsonList(page: Int, num: Int): BlogArticleListJson {
+    fun getJsonList(page: Int, num: Int): BlogArticleListResponnse {
         val offset = num * (page - 1)
         val articles = blogRepository.getList(num, offset)
 
@@ -31,14 +31,14 @@ class BlogUseCase(
             })
         }
 
-        return BlogArticleListJson(
+        return BlogArticleListResponnse(
                 nextToken,
                 prevToken,
                 list
         )
     }
 
-    fun getItem(id: Int): BlogArticleJson? {
+    fun getItem(id: Int): BlogArticleResponse? {
         val article = blogRepository.getItem(id)
         val categories = article?.categoryId?.let {
             categoryRepository.getAncestors(it)
@@ -46,7 +46,7 @@ class BlogUseCase(
         return article?.toJson(categories)
     }
 
-    fun getPopularList(): BlogArticleListJson {
+    fun getPopularList(): BlogArticleListResponnse {
         val articles = blogRepository.getPopularList(
             limit = 20,
             thresholdDay = DateTime.now().minusDays(90)
@@ -56,7 +56,7 @@ class BlogUseCase(
                 categoryRepository.getAncestors(id)
             })
         }
-        return BlogArticleListJson(
+        return BlogArticleListResponnse(
                 null,
                 null,
                 list

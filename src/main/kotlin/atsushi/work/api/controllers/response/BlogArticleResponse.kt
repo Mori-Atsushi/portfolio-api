@@ -2,7 +2,7 @@ package atsushi.work.api.controllers.response
 
 import atsushi.work.api.entities.CategoryData
 
-data class BlogArticleJson(
+data class BlogArticleResponse(
     val id: Int,
     val title: String,
     val description: String,

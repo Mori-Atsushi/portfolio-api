@@ -1,6 +1,6 @@
 package atsushi.work.api.usecase
 
-import atsushi.work.api.controllers.response.BlogArticleListJson
+import atsushi.work.api.controllers.response.BlogArticleListResponse
 import atsushi.work.api.helper.mapper.toJson
 import atsushi.work.api.repositorys.BlogRepository
 import atsushi.work.api.repositorys.CategoryRepository
@@ -13,7 +13,7 @@ class CategoryUseCase(
 ) {
     fun getList() = categoryRepository.getList()
 
-    fun getItem(name: String, page: Int, num: Int): BlogArticleListJson {
+    fun getItem(name: String, page: Int, num: Int): BlogArticleListResponse {
         val offset = num * (page - 1)
         val ids = categoryRepository.getDescendant(name)?.map { it.id } ?: listOf()
         val list = blogRepository.getList(num, offset, ids)
@@ -30,7 +30,7 @@ class CategoryUseCase(
             "?page=${page + 1}&num=$num"
         } else null
 
-        return BlogArticleListJson(
+        return BlogArticleListResponse(
                 nextToken,
                 prevToken,
                 list
