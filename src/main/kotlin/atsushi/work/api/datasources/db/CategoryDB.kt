@@ -3,9 +3,9 @@ package atsushi.work.api.datasources.db
 import atsushi.work.api.datasources.db.config.Config
 import atsushi.work.api.datasources.db.table.CategoriesTable
 import atsushi.work.api.datasources.db.table.CategoryTreeTable
-import atsushi.work.api.entities.CategoryData
-import atsushi.work.api.entities.CategoryDataWithParents
-import atsushi.work.api.entities.CategoryTreeData
+import atsushi.work.api.model.Category
+import atsushi.work.api.model.CategoryWithParents
+import atsushi.work.api.model.CategoryTree
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Component
@@ -22,7 +22,7 @@ class CategoryDB(
         }
     }
 
-    fun getList(): List<CategoryTreeData> = transaction {
+    fun getList(): List<CategoryTree> = transaction {
         val categoryTreeAlias = CategoryTreeTable
             .select { CategoryTreeTable.pathLength eq 1 }
             .alias("categoryTree")
@@ -34,7 +34,7 @@ class CategoryDB(
                 otherColumn = { categoryTreeAlias[CategoryTreeTable.descendant] })
             .selectAll()
             .map {
-                CategoryDataWithParents(
+                CategoryWithParents(
                     it[categoryTreeAlias[CategoryTreeTable.ancestor]],
                     it[CategoriesTable.id],
                     it[CategoriesTable.name]
@@ -43,14 +43,14 @@ class CategoryDB(
             .toTree()
     }
 
-    fun getItem(name: String): CategoryData? = transaction {
+    fun getItem(name: String): Category? = transaction {
         CategoriesTable
             .select { CategoriesTable.name eq name }
             .toCategoryList()
             .firstOrNull()
     }
 
-    fun getDescendant(name: String): List<CategoryData>? = transaction {
+    fun getDescendant(name: String): List<Category>? = transaction {
         getItem(name)?.let {
             CategoriesTable
                 .innerJoin(
@@ -67,7 +67,7 @@ class CategoryDB(
         }
     }
 
-    fun getAncestors(id: Int): List<CategoryData> = transaction {
+    fun getAncestors(id: Int): List<Category> = transaction {
         CategoriesTable
             .innerJoin(
                 otherTable = CategoryTreeTable,
@@ -81,16 +81,16 @@ class CategoryDB(
             .toCategoryList()
     }
 
-    private fun Query.toCategoryList(): List<CategoryData> = this.map {
-        CategoryData(
+    private fun Query.toCategoryList(): List<Category> = this.map {
+        Category(
             it[CategoriesTable.id],
             it[CategoriesTable.name]
         )
     }
 
-    private fun List<CategoryDataWithParents>.toTree(): List<CategoryTreeData> {
+    private fun List<CategoryWithParents>.toTree(): List<CategoryTree> {
         val nodes = this.map {
-            CategoryTreeData(
+            CategoryTree(
                 it.id,
                 it.name
             )

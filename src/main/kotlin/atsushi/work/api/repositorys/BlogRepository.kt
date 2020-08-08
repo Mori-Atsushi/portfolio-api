@@ -1,7 +1,7 @@
 package atsushi.work.api.repositorys
 
 import atsushi.work.api.datasources.db.ArticleDB
-import atsushi.work.api.entities.BlogArticle
+import atsushi.work.api.model.BlogArticle
 import org.joda.time.DateTime
 import org.springframework.stereotype.Component
 

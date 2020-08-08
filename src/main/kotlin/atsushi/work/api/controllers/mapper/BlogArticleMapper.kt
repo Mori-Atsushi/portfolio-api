@@ -1,7 +1,7 @@
 package atsushi.work.api.controllers.mapper
 
 import atsushi.work.api.controllers.response.BlogArticleResponse
-import atsushi.work.api.entities.BlogArticle
+import atsushi.work.api.model.BlogArticle
 
 fun BlogArticle.toResponse(): BlogArticleResponse {
     return BlogArticleResponse(

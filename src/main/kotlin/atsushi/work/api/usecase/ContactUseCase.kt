@@ -1,6 +1,6 @@
 package atsushi.work.api.usecase
 
-import atsushi.work.api.entities.ContactRequest
+import atsushi.work.api.model.ContactRequest
 import atsushi.work.api.repositorys.ContactRepository
 import org.springframework.stereotype.Component
 

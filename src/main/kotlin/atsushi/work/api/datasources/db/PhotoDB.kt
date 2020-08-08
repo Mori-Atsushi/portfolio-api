@@ -2,7 +2,7 @@ package atsushi.work.api.datasources.db
 
 import atsushi.work.api.datasources.db.config.Config
 import atsushi.work.api.datasources.db.table.PhotosTable
-import atsushi.work.api.entities.PhotoData
+import atsushi.work.api.model.PhotoData
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Component

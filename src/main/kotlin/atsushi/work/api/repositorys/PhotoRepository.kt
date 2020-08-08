@@ -1,7 +1,7 @@
 package atsushi.work.api.repositorys
 
 import atsushi.work.api.datasources.db.PhotoDB
-import atsushi.work.api.entities.PhotoData
+import atsushi.work.api.model.PhotoData
 import org.springframework.stereotype.Component
 
 @Component

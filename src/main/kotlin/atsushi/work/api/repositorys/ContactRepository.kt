@@ -1,7 +1,7 @@
 package atsushi.work.api.repositorys
 
 import atsushi.work.api.datasources.slack.Slack
-import atsushi.work.api.entities.ContactRequest
+import atsushi.work.api.model.ContactRequest
 import org.springframework.stereotype.Component
 
 @Component

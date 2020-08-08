@@ -3,7 +3,7 @@ package atsushi.work.api.datasources.db
 import atsushi.work.api.datasources.db.config.Config
 import atsushi.work.api.datasources.db.table.ArticlesReadTable
 import atsushi.work.api.datasources.db.table.ArticlesTable
-import atsushi.work.api.entities.BlogArticle
+import atsushi.work.api.model.BlogArticle
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.joda.time.DateTime

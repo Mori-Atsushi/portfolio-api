@@ -1,4 +1,4 @@
-package atsushi.work.api.entities
+package atsushi.work.api.model
 
 import org.joda.time.DateTime
 
