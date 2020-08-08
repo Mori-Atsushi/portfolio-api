@@ -1,7 +1,7 @@
 package atsushi.work.api.usecase
 
 import atsushi.work.api.model.Photo
-import atsushi.work.api.repositorys.PhotoRepository
+import atsushi.work.api.repository.PhotoRepository
 import org.springframework.stereotype.Component
 
 @Component

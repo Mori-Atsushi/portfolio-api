@@ -2,7 +2,7 @@ package atsushi.work.api.usecase
 
 import atsushi.work.api.model.BlogArticle
 import atsushi.work.api.model.exception.NotFoundException
-import atsushi.work.api.repositorys.BlogRepository
+import atsushi.work.api.repository.BlogRepository
 import org.joda.time.DateTime
 import org.springframework.stereotype.Component
 
