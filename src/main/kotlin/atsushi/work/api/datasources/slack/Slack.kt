@@ -2,7 +2,7 @@ package atsushi.work.api.datasources.slack
 
 import atsushi.work.api.datasources.slack.model.SlackMessageAttachment
 import atsushi.work.api.datasources.slack.model.SlackMessageRequest
-import atsushi.work.api.datasources.slack.setting.SlackProperties
+import atsushi.work.api.datasources.slack.config.SlackProperties
 import com.fasterxml.jackson.databind.PropertyNamingStrategy
 import com.fasterxml.jackson.module.kotlin.*
 import com.github.kittinunf.fuel.httpPost

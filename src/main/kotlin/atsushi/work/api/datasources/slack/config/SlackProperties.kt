@@ -1,4 +1,4 @@
-package atsushi.work.api.datasources.slack.setting
+package atsushi.work.api.datasources.slack.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.stereotype.Component
