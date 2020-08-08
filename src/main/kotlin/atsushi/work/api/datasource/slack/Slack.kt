@@ -1,8 +1,8 @@
 package atsushi.work.api.datasource.slack
 
+import atsushi.work.api.datasource.slack.config.SlackProperties
 import atsushi.work.api.datasource.slack.model.SlackMessageAttachment
 import atsushi.work.api.datasource.slack.model.SlackMessageRequest
-import atsushi.work.api.datasource.slack.config.SlackProperties
 import com.fasterxml.jackson.databind.PropertyNamingStrategy
 import com.fasterxml.jackson.module.kotlin.*
 import com.github.kittinunf.fuel.httpPost
