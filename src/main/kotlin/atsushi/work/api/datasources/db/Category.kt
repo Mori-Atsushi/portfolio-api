@@ -1,22 +1,13 @@
 package atsushi.work.api.datasources.db
 
+import atsushi.work.api.datasources.db.table.CategoriesTable
+import atsushi.work.api.datasources.db.table.CategoryTreeTable
 import atsushi.work.api.entities.CategoryData
 import atsushi.work.api.entities.CategoryDataWithParents
 import atsushi.work.api.entities.CategoryTreeData
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Component
-
-object CategoriesTable : Table() {
-    val id = CategoriesTable.integer("id").autoIncrement().primaryKey()
-    val name = CategoriesTable.text("name")
-}
-
-object CategoryTreeTable : Table() {
-    val ancestor = (integer("ancestor") references CategoriesTable.id).primaryKey()
-    val descendant = (integer("descendant") references CategoriesTable.id).primaryKey()
-    val pathLength = CategoryTreeTable.integer("path_length")
-}
 
 @Component
 class Category(
@@ -88,34 +79,34 @@ class Category(
                 .orderBy(CategoryTreeTable.pathLength to false)
                 .toCategoryList()
     }
-}
 
-private fun Query.toCategoryList(): List<CategoryData> = this.map {
-    CategoryData(
+    private fun Query.toCategoryList(): List<CategoryData> = this.map {
+        CategoryData(
             it[CategoriesTable.id],
             it[CategoriesTable.name]
-    )
-}
-
-private fun List<CategoryDataWithParents>.toTree(): List<CategoryTreeData> {
-    val nodes = this.map {
-        CategoryTreeData(
-                it.id,
-                it.name
         )
     }
 
-    this.filter { it.parentId != null }
+    private fun List<CategoryDataWithParents>.toTree(): List<CategoryTreeData> {
+        val nodes = this.map {
+            CategoryTreeData(
+                it.id,
+                it.name
+            )
+        }
+
+        this.filter { it.parentId != null }
             .forEach { item ->
                 nodes.find {
                     it.id == item.parentId
                 }?.children?.add(
-                        nodes.find { it.id == item.id }!!
+                    nodes.find { it.id == item.id }!!
                 )
             }
 
-    return this.filter { it.parentId == null }
+        return this.filter { it.parentId == null }
             .mapNotNull { item ->
                 nodes.find { it.id == item.id }
             }
+    }
 }

@@ -1,29 +1,12 @@
 package atsushi.work.api.datasources.db
 
+import atsushi.work.api.datasources.db.table.ArticlesReadTable
+import atsushi.work.api.datasources.db.table.ArticlesTable
 import atsushi.work.api.entities.BlogArticle
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.joda.time.DateTime
 import org.springframework.stereotype.Component
-
-object ArticlesTable : Table() {
-    val id = integer("id").autoIncrement().primaryKey()
-    val title = text("title")
-    val description = text("description")
-    val content = text("content")
-    val isPublic = bool("is_public")
-    val ogpImage = text("ogp_image").nullable()
-    val releaseAt = datetime("release_at")
-    val createAt = datetime("createAt")
-    val updatedAt = datetime("updated_at")
-    val categoryId = (integer("category_id") references CategoriesTable.id).nullable()
-}
-
-object ArticlesReadTable : Table() {
-    val id = integer("id").autoIncrement().primaryKey()
-    val articleId = (integer("article_id") references ArticlesTable.id)
-    val readAt = datetime("createAt")
-}
 
 @Component
 class Article(
@@ -101,18 +84,18 @@ class Article(
             ArticlesTable.categoryId.inList(ids)
         }
     }
-}
 
-private fun Query.toBlogArticleList(): List<BlogArticle> =
+    private fun Query.toBlogArticleList(): List<BlogArticle> =
         this.map {
             BlogArticle(
-                    it[ArticlesTable.id],
-                    it[ArticlesTable.title],
-                    it[ArticlesTable.description],
-                    it[ArticlesTable.content],
-                    it[ArticlesTable.ogpImage],
-                    it[ArticlesTable.releaseAt],
-                    it[ArticlesTable.updatedAt],
-                    it[ArticlesTable.categoryId]
+                it[ArticlesTable.id],
+                it[ArticlesTable.title],
+                it[ArticlesTable.description],
+                it[ArticlesTable.content],
+                it[ArticlesTable.ogpImage],
+                it[ArticlesTable.releaseAt],
+                it[ArticlesTable.updatedAt],
+                it[ArticlesTable.categoryId]
             )
         }
+}
