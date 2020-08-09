@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 class ContactUseCase(
     val contactRepository: ContactRepository
 ) {
-    fun send(value: Contact) {
+    suspend fun send(value: Contact) {
         contactRepository.sendSlack(value)
     }
 }

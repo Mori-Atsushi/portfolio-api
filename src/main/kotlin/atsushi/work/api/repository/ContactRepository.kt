@@ -8,8 +8,9 @@ import org.springframework.stereotype.Component
 class ContactRepository(
     val slack: Slack
 ) {
-    fun sendSlack(value: Contact) = slack.sendAttachments(
-        text = value.message,
-        title = "${value.name}<${value.email}>"
-    )
+    suspend fun sendSlack(value: Contact) =
+        slack.sendAttachments(
+            text = value.message,
+            title = "${value.name}<${value.email}>"
+        )
 }

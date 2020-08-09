@@ -11,6 +11,6 @@ class ContactController(
     val contactUseCase: ContactUseCase
 ) {
     @RequestMapping(method = [RequestMethod.POST])
-    fun send(@RequestBody contact: ContactRequest) =
+    suspend fun send(@RequestBody contact: ContactRequest) =
         contactUseCase.send(contact.toModel())
 }
