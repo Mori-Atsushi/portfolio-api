@@ -12,4 +12,10 @@ class BadRequestExceptionHandler {
     fun getNotFoundException(e: NotFoundException): ResponseEntity<ErrorResponse> {
         return ResponseEntity(ErrorResponse("not found"), HttpStatus.NOT_FOUND)
     }
+
+    @ExceptionHandler(Throwable::class)
+    fun getOtherException(e: Throwable): ResponseEntity<ErrorResponse> {
+        println(e)
+        return ResponseEntity(ErrorResponse("unknown error"), HttpStatus.INTERNAL_SERVER_ERROR)
+    }
 }
