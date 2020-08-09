@@ -62,6 +62,9 @@ target/
 # .idea/*.iml
 # .idea/modules
 
+## properties
+application.properties
+
 # CMake
 cmake-build-*/
 
