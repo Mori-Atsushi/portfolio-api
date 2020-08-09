@@ -2,6 +2,7 @@ package atsushi.work.api.controller
 
 import atsushi.work.api.controller.mapper.toResponse
 import atsushi.work.api.controller.response.BlogArticleListResponse
+import atsushi.work.api.controller.response.BlogArticlePagingListResponse
 import atsushi.work.api.controller.response.BlogArticleResponse
 import atsushi.work.api.model.exception.NotFoundException
 import atsushi.work.api.usecase.BlogUseCase
@@ -16,9 +17,9 @@ class BlogController(
     fun list(
         @RequestParam("page") page: Int?,
         @RequestParam("num") num: Int?
-    ): BlogArticleListResponse = blogUseCase.getList(
+    ): BlogArticlePagingListResponse = blogUseCase.getList(
         page ?: 1,
-        num ?: 20
+        num ?: 15
     ).toResponse()
 
     @RequestMapping(value = ["/popular"], method = [RequestMethod.GET])

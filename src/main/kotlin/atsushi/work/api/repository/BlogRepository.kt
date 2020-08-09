@@ -24,27 +24,8 @@ class BlogRepository(
 
     fun getItem(id: Int): BlogArticle? = articleDB.getItem(id)
 
-    fun isExistPrev(
-        limit: Int,
-        offset: Int,
-        categoryIds: List<Int>? = null
-    ): Boolean {
-        val prevArticle =
-            if (offset > 0) {
-                getList(1, offset - 1, categoryIds)
-            } else {
-                emptyList()
-            }
-        return prevArticle.isNotEmpty()
-    }
-
-    fun isExistNext(
-        limit: Int,
-        offset: Int,
-        categoryIds: List<Int>? = null
-    ): Boolean {
-        val nextArticle = getList(1, offset + limit, categoryIds)
-        return nextArticle.isNotEmpty()
+    fun getArticleNum(): Int {
+        return articleDB.getArticleNum()
     }
 
     /**

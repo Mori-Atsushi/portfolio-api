@@ -1,6 +1,7 @@
 package atsushi.work.api.usecase
 
 import atsushi.work.api.model.BlogArticle
+import atsushi.work.api.model.BlogArticlePagingList
 import atsushi.work.api.model.exception.NotFoundException
 import atsushi.work.api.repository.BlogRepository
 import org.joda.time.DateTime
@@ -10,9 +11,16 @@ import org.springframework.stereotype.Component
 class BlogUseCase(
     private val blogRepository: BlogRepository
 ) {
-    fun getList(page: Int, num: Int): List<BlogArticle> {
+    fun getList(page: Int, num: Int): BlogArticlePagingList {
         val offset = num * (page - 1)
-        return blogRepository.getList(num, offset)
+        val list = blogRepository.getList(num, offset)
+        val articleNum = blogRepository.getArticleNum()
+        val pageNum = (articleNum + num - 1) / num
+        return BlogArticlePagingList(
+            list = list,
+            currentPage = page,
+            pageNum = pageNum
+        )
     }
 
     fun getItem(id: Int): BlogArticle? {

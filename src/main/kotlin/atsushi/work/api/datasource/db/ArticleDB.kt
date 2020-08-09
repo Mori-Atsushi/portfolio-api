@@ -62,6 +62,12 @@ class ArticleDB(
             .firstOrNull()
     }
 
+    fun getArticleNum(): Int = transaction {
+        ArticlesTable
+            .select { isPublic() }
+            .count()
+    }
+
     fun readItem(id: Int) = transaction {
         ArticlesReadTable.insert {
             it[articleId] = id
