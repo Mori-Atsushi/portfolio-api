@@ -24,6 +24,10 @@ class BlogRepository(
 
     fun getItem(id: Int): BlogArticle? = articleDB.getItem(id)
 
+    fun getArticleNum(): Int {
+        return articleDB.getArticleNum()
+    }
+
     /**
      * ブログが読まれたことを保存する
      *
