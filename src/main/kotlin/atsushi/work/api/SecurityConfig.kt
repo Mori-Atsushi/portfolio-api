@@ -1,16 +1,18 @@
 package atsushi.work.api
 
-import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.context.annotation.Bean
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
+import org.springframework.security.config.web.server.ServerHttpSecurity
+import org.springframework.security.web.server.SecurityWebFilterChain
 import org.springframework.web.cors.CorsConfiguration
-import org.springframework.web.cors.CorsConfigurationSource
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import org.springframework.web.cors.reactive.CorsConfigurationSource
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource
 
-@EnableWebSecurity
-class SecurityConfig : WebSecurityConfigurerAdapter() {
+@EnableWebFluxSecurity
+class SecurityConfig {
 
-    override fun configure(http: HttpSecurity) {
+    @Bean
+    fun configure(http: ServerHttpSecurity): SecurityWebFilterChain {
 
         // CORS設定
         http.cors()
@@ -18,6 +20,8 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
 
         // CSRF設定
         http.csrf().disable()
+
+        return http.build()
     }
 
     /**
