@@ -5,14 +5,15 @@ import atsushi.work.api.datasource.slack.model.SlackMessageAttachment
 import atsushi.work.api.datasource.slack.model.SlackMessageRequest
 import com.fasterxml.jackson.databind.PropertyNamingStrategy
 import com.fasterxml.jackson.module.kotlin.*
-import com.github.kittinunf.fuel.httpPost
+import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.coroutines.awaitStringResponse
 import org.springframework.stereotype.Component
 
 @Component
 class Slack(
     private val properties: SlackProperties
 ) {
-    fun sendAttachments(
+    suspend fun sendAttachments(
         text: String,
         title: String? = null,
         authorName: String? = null
@@ -32,6 +33,8 @@ class Slack(
             .setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE)
         val json = mapper.writeValueAsString(body)
 
-        webhook.httpPost().body(json).response { _, _, _ -> }
+        Fuel.post(webhook)
+            .body(json)
+            .awaitStringResponse()
     }
 }
